@@ -36,7 +36,6 @@
                 <span class="font-bold text-title"><?= $total_users ?></span>
               </div>
             </div>
-
             <div class="card">
               <i class="fa fa-newspaper-o fa-2x text-red" aria-hidden="true"></i>
               <div class="card_inner">
@@ -44,23 +43,17 @@
                 <span class="font-bold text-title"><?= $total_articles ?></span>
               </div>
             </div>
-
             <div class="card">
-              <i
-                class="fa fa-archive fa-2x text-yellow"
-                aria-hidden="true"
-              ></i>
+              <i class="fa fa-archive fa-2x text-yellow"
+                aria-hidden="true"></i>
               <div class="card_inner">
                 <p class="text-primary-p">Number of Archives</p>
                 <span class="font-bold text-title"><?= $total_archives ?></span>
               </div>
             </div>
-
             <div class="card">
-              <i
-                class="fa fa-address-book-o fa-2x text-green"
-                aria-hidden="true"
-              ></i>
+              <i class="fa fa-address-book-o fa-2x text-green"
+                aria-hidden="true"></i>
               <div class="card_inner">
                 <p class="text-primary-p">Number of Authors</p>
                 <span class="font-bold text-title"><?= $total_authors ?></span>
@@ -69,5 +62,3 @@
           </div>
         </div>
       </main>
-
-     

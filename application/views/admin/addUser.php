@@ -17,28 +17,31 @@
       </nav>
       <main>
     <div class="main__container">
+    <?php echo validation_errors(); ?>
+
+    <?php echo form_open('admin/addUser'); ?>
         <form action="">
 <div class="nice-form-group">
   <label>Email</label>
-  <input type="email" placeholder="Email Address" value="" />
+  <input type="email" placeholder="Email Address" name="email" value="" />
 </div>
 
 <div class="nice-form-group">
   <label>Username</label>
-  <input type="tel" placeholder="Username" value="" />
+  <input type="text" placeholder="Username" name="username" value="" />
 </div>
 
 <div class="nice-form-group">
   <label>Full Name</label>
-  <input type="url" placeholder="Full Name" value="" />
+  <input type="text" placeholder="Full Name" name="name" value="" />
 </div>
 
 <div class="nice-form-group">
   <label>Password</label>
-  <input type="password" placeholder="Password" />
+  <input type="password" name="password" placeholder="Password" />
 </div>
 <br>
-<button class="button">
+<button class="button" type="submit">
   <span class="button-text">Submit</span>
   <div class="fill-container"></div>
 </button>

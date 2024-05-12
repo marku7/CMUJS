@@ -69,12 +69,57 @@ class Admin extends CI_Controller {
     public function addUser() {
         $data['active_page'] = 'user';
         $data['users_content'] = 'admin/addUser';
-        $this->load->helper('url');
+        $this->load->helper(array('form', 'url'));
         $this->load->view('templates/adminheader', $data);
-        $data['users'] = $this -> user_model-> get_users(); 
-        $this->load->view($data['users_content'], $data);
+        $this->load->library('form_validation');
+    
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('name', 'Full Name', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+    
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->load->view('admin/addUser', $data); 
+        }
+        else
+        {
+            $this->load->model('add_user_model'); 
+            if ($this->add_user_model->add_user()) { 
+                redirect('admin/user');
+            } else {
+                echo "Failed to add user!";
+            }
+        }
+        
         $this->load->view('admin/sidebar', $data);
         $this->load->view('templates/adminfooter', $data);
+    }
+
+    public function removeUser($userId) {
+        $result = $this->user_model->remove_user($userId);
+    
+        if ($result) {
+            redirect('admin/user');
+        } else {
+            echo "Failed to remove user!";
+        }
+    }
+
+    public function editUser($userId = NULL) {
+        $data['active_page'] = 'user';
+        if ($userId === NULL) {
+            echo "No userid received";
+        } else {
+            $data['active_page'] = 'editUser';
+            $data['user'] = $this->user_model->get_users($userId); 
+            $data['edit_user'] = 'admin/editUser';
+            $this->load->helper('url');
+            $this->load->view('templates/adminheader', $data);
+            $this->load->view($data['edit_user'], $data);
+            $this->load->view('admin/sidebar', $data); 
+            $this->load->view('templates/adminfooter', $data);
+        }
     }
 }
 ?>

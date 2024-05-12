@@ -16,5 +16,11 @@
             $query = $this->db->get_where('users', array('userid' => $id));
             return $query->row_array();
         }
+
+        public function remove_user($userId) {
+            return $this->db->delete('users', array('userid' => $userId));
+        }
+        
+        
 }
 ?>
