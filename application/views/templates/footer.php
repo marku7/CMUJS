@@ -8,9 +8,7 @@
     <p><i>Alrights reserved. No part of this publication may be reproduced, distributed, 
         or transmitted in any form or by any means without the prior permission from the publisher.</i></p>
 </div>
-
     </body>
-
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/prism.js" data-manual></script>
     <script src="./assets/js/custom.js"></script>
