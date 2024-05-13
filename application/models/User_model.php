@@ -21,6 +21,16 @@
             return $this->db->delete('users', array('userid' => $userId));
         }
         
+        public function authenticate_user($email, $password) {
+            $query = $this->db->get_where('users', array('email' => $email, 'password' => $password));
+
+            if ($query->num_rows() == 1) {
+                return $query->row();
+            } else {
+                return false;
+            }
+
+        }
         
 }
 ?>
