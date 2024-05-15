@@ -41,8 +41,9 @@
         <td><?php echo $volume['volumeID']; ?></td>
         <td><?php echo $volume['volumeName']; ?></td>
         <td><?php echo $volume['date_added']; ?></td>
-        <td><a href="#" title="Edit User" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-        <a href="#" title="Remove User"><i class="fa fa-ban" aria-hidden="true"></i></a></td>
+        <td><a href="#" title="Edit Volume" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <a href="" title="View Volume"><i class="fa fa-eye" aria-hidden="true"></i></a>
+        <a href="#" title="Remove Volume"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
       </tr>
     <?php endforeach; ?>
   </tbody>

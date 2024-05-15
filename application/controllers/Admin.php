@@ -74,7 +74,7 @@ class Admin extends CI_Controller {
         $this->load->library('form_validation');
     
         $this->form_validation->set_rules('email', 'Email', 'required');
-        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('role', 'role', 'required');
         $this->form_validation->set_rules('name', 'Full Name', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
     
@@ -120,6 +120,17 @@ class Admin extends CI_Controller {
             $this->load->view('admin/sidebar', $data); 
             $this->load->view('templates/adminfooter', $data);
         }
+    }
+
+    public function viewUser($userId = NULL) {
+        $data['active_page'] = 'user';
+        $data['user'] = $this->user_model->get_users($userId); 
+        $data['view_user'] = 'admin/viewUser';
+        $this->load->helper('url');
+        $this->load->view('templates/adminheader', $data);
+        $this->load->view($data['view_user'], $data);
+       
+        $this->load->view('templates/adminfooter', $data);
     }
 }
 ?>

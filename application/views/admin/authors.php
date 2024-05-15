@@ -31,6 +31,7 @@
     <tr>
       <th scope="col">Author ID</th>
       <th scope="col">Author Full Name</th>
+      <th scope="col">Email</th>
       <th scope="col">Date Registered</th>
       <th scope="col">Manage</th>
     </tr>
@@ -40,8 +41,10 @@
       <tr>
         <td><?php echo $author['authorID']; ?></td>
         <td><?php echo $author['name']; ?></td>
+        <td><?php echo $author['email']; ?></td>
         <td><?php echo $author['date_created']; ?></td>
         <td><a href="#" title="Edit User" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
         <a href="#" title="Remove User"><i class="fa fa-ban" aria-hidden="true"></i></a></td>
       </tr>
     <?php endforeach; ?>

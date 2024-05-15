@@ -31,7 +31,7 @@
     <tr>
       <th scope="col">Article ID</th>
       <th scope="col">Article Title</th>
-      <th scope="col">Author ID</th>
+      <th scope="col">volume ID</th>
       <th scope="col">Key Words</th>
       <th scope="col">Manage</th>
     </tr>
@@ -41,10 +41,12 @@
       <tr>
         <td><?php echo $article['articleid']; ?></td>
         <td><?php echo $article['title']; ?></td>
-        <td><?php echo $article['authorID']; ?></td>
+        <td><?php echo $article['volumeid']; ?></td>
         <td><?php echo $article['keywords']; ?></td>
-        <td><a href="#" title="Edit User" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-        <a href="#" title="Remove User"><i class="fa fa-ban" aria-hidden="true"></i></a></td>
+        <td><a href="#" title="Edit Article"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <a href="#" title="View Article"><i class="fa fa-eye" aria-hidden="true"></i></a>
+        <a href="" title="Archive Article"><i class="fa fa-archive" aria-hidden="true"></i></a>
+        <a href="#" title="Remove Article"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
       </tr>
     <?php endforeach; ?>
   </tbody>

@@ -25,15 +25,15 @@
             <div class="main__greeting">
               <h1>Manage User</h1>
               <p>List of All Users</p>
-              <br>
-            </div>
-          </div>
+          <br>
+      </div>
+    </div>
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">User Name</th>
+      <th scope="col">Email</th>
       <th scope="col">Full Name</th>
-      <th scope="col">Email Address</th>
+      <th scope="col">Role</th>
       <th scope="col">Manage</th>
     </tr>
   </thead>
@@ -41,10 +41,28 @@
     <?php foreach ($users as $user): ?>
       <tr>
         <td><?php echo $user['userid']; ?></td>
-        <td><?php echo $user['username']; ?></td>
-        <td><?php echo $user['fullname']; ?></td>
         <td><?php echo $user['email']; ?></td>
-        <td><a href="<?php echo base_url('admin/editUser/'.$user['userid']); ?>" title="Edit User"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <td><?php echo $user['complete_name']; ?></td>
+        <td>
+          <?php
+          switch ($user['role']) {
+              case 1:
+                  echo "Author";
+                  break;
+              case 2:
+                  echo "Researcher";
+                  break;
+              case 3:
+                  echo "Evaluator";
+                  break;
+              default:
+                  echo "Unknown";
+                  break;
+          }
+          ?>
+      </td>
+        <td><a href="<?php echo base_url('admin/editUser/'.$user['userid']); ?>" title="Edit User"><i class="fa fa-pencil" aria-hidden="true"></i></a> 
+        <a href="<?php echo base_url('admin/viewUser/'.$user['userid']); ?>" title="View User" ><i class="fa fa-eye" aria-hidden="true"></i></a>
         <a href="<?php echo base_url('admin/removeUser/'.$user['userid']); ?>" title="Remove User"><i class="fa fa-ban" aria-hidden="true"></i></a></td>
       </tr>
     <?php endforeach; ?>

@@ -69,16 +69,12 @@
                         <input type="email" placeholder="Email Address" name="email" value="<?php echo $user['email']; ?>" />
                     </div>
                     <div class="nice-form-group">
-                        <label>Username</label>
-                        <input type="text" placeholder="Username" name="username" value="<?php echo $user['username']; ?>" />
-                    </div>
-                    <div class="nice-form-group">
                         <label>Full Name</label>
-                        <input type="text" placeholder="Full Name" name="name" value="<?php echo $user['fullname']; ?>" />
+                        <input type="text" placeholder="Full Name" name="name" value="<?php echo $user['complete_name']; ?>" />
                     </div>
                     <div class="nice-form-group">
                         <label>Password</label>
-                        <input type="password" name="password" placeholder="Password" value="<?php echo $user['password']; ?>" />
+                        <input type="password" name="password" placeholder="Password" value="<?php echo $user['pword']; ?>" />
                     </div>
                     <br>
                     <button class="button" type="submit">
