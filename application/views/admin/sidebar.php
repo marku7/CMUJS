@@ -35,6 +35,10 @@
             <i class="fa fa-book"></i>
             <a href="volume">Volume Management</a>
           </div>
+          <div class="sidebar__link <?php echo $active_page === 'archive' ? 'active_menu_link' : ''; ?>">
+            <i class="fa fa-newspaper-o"></i>
+            <a href="archive">Archive Management</a>
+          </div>
           <div class="sidebar__logout">
             <i class="fa fa-power-off"></i>
             <a href="<?php echo base_url(" ") ?>">Log out</a>

@@ -14,3 +14,4 @@ $route['translate_uri_dashes'] = FALSE;
 $route['pages/(:any)'] = 'pages/$1';
 $route['admin/(:any)'] = 'admin/$1';
 $route['users/(:any)'] = 'users/$1';
+$route['admin/editUser/(:num)'] = 'admin/editUser/$1';

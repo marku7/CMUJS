@@ -31,7 +31,7 @@
     <tr>
       <th scope="col">Article ID</th>
       <th scope="col">Article Title</th>
-      <th scope="col">volume ID</th>
+      <th scope="col">Volume</th>
       <th scope="col">Key Words</th>
       <th scope="col">Manage</th>
     </tr>
@@ -43,32 +43,94 @@
         <td><?php echo $article['title']; ?></td>
         <td><?php echo $article['volumeid']; ?></td>
         <td><?php echo $article['keywords']; ?></td>
-        <td><a href="#" title="Edit Article"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-        <a href="#" title="View Article"><i class="fa fa-eye" aria-hidden="true"></i></a>
-        <a href="" title="Archive Article"><i class="fa fa-archive" aria-hidden="true"></i></a>
-        <a href="#" title="Remove Article"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+        <td>
+          <!-- <a href="#" title="Edit Article"><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
+          <?php if ($article['isPublished'] == 0): ?>
+            <a href="#" class="publish-article" data-id="<?php echo $article['articleid']; ?>" title="Publish Article"><i class="fa fa-eye" aria-hidden="true"></i></a>
+          <?php else: ?>
+            <a href="#" class="unpublish-article" data-id="<?php echo $article['articleid']; ?>" title="Unpublish Article"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+          <?php endif; ?>
+          <a href="#" class="archive-article" data-id="<?php echo $article['articleid']; ?>" title="Archive Article"><i class="fa fa-archive" aria-hidden="true"></i></a>
+          <a href="#" title="Remove Article"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        </td>
       </tr>
     <?php endforeach; ?>
   </tbody>
 </table>
 </div>
 </main>
-<div class="modal" style="display: none;" id="editModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"></span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.publish-article').forEach(function(publishLink) {
+        publishLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            const articleId = this.getAttribute('data-id');
+
+            fetch('<?php echo base_url('admin/publishArticle/'); ?>' + articleId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
+                } else {
+                    alert('Failed to publish the article.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    document.querySelectorAll('.unpublish-article').forEach(function(unpublishLink) {
+        unpublishLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            const articleId = this.getAttribute('data-id');
+
+            fetch('<?php echo base_url('admin/unpublishArticle/'); ?>' + articleId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
+                } else {
+                    alert('Failed to unpublish the article.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    document.querySelectorAll('.archive-article').forEach(function(archiveLink) {
+        archiveLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            const articleId = this.getAttribute('data-id');
+
+            fetch('<?php echo base_url('admin/archiveArticle/'); ?>' + articleId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
+                } else {
+                    alert('Failed to archive the article.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+});
+</script>

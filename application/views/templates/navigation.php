@@ -25,8 +25,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="login">Login</a>
-            <a class="dropdown-item" href="<?php echo base_url("login") ?>">Register</a>
+            <a class="dropdown-item" href="login">Login / Register</a>
             <a class="dropdown-item" href="<?php echo base_url("admin/index") ?>">Logout</a>
         </li>
       </ul>

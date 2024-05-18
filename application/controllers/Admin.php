@@ -44,6 +44,17 @@ class Admin extends CI_Controller {
         $this->load->view('templates/adminfooter', $data);
     }
 
+    public function archive() {
+        $data['active_page'] = 'archive';
+        $data['archives_content'] = 'admin/archives';
+        $this->load->helper('url');
+        $this->load->view('templates/adminheader', $data);
+        $data['archives'] = $this -> archive_model-> get_archives(); 
+        $this->load->view($data['archives_content'], $data);
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('templates/adminfooter', $data);
+    }
+
     public function author() {
         $data['active_page'] = 'author';
         $data['authors_content'] = 'admin/authors';
@@ -84,8 +95,8 @@ class Admin extends CI_Controller {
         }
         else
         {
-            $this->load->model('add_user_model'); 
-            if ($this->add_user_model->add_user()) { 
+            $this->load->model('crud_user_model'); 
+            if ($this->crud_user_model->add_user()) { 
                 redirect('admin/user');
             } else {
                 echo "Failed to add user!";
@@ -106,22 +117,39 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function editUser($userId = NULL) {
+    public function editUser($userId) {
+        $data['userId'] = $userId;
+        echo 'Received userId: '. $userId;
+        echo "In editUser method with userId: $userId<br>";
         $data['active_page'] = 'user';
-        if ($userId === NULL) {
-            echo "No userid received";
-        } else {
-            $data['active_page'] = 'editUser';
-            $data['user'] = $this->user_model->get_users($userId); 
-            $data['edit_user'] = 'admin/editUser';
-            $this->load->helper('url');
+        $data['users_content'] = 'admin/editUser';
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
+
+        $this->load->model('crud_user_model'); 
+        $data['user'] = $this->crud_user_model->get_user_by_id($userId);
+    
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('name', 'Full Name', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+    
+        if ($this->form_validation->run() == FALSE)
+        {
             $this->load->view('templates/adminheader', $data);
-            $this->load->view($data['edit_user'], $data);
-            $this->load->view('admin/sidebar', $data); 
+            $this->load->view('admin/editUser', $data);
+            $this->load->view('admin/sidebar', $data);
             $this->load->view('templates/adminfooter', $data);
         }
+        else
+        {
+            if ($this->crud_user_model->editUser($userId)) { 
+                redirect('admin/user');
+            } else {
+                echo "Failed to edit user!";
+            }
+        }
     }
-
+    
     public function viewUser($userId = NULL) {
         $data['active_page'] = 'user';
         $data['user'] = $this->user_model->get_users($userId); 
@@ -132,5 +160,51 @@ class Admin extends CI_Controller {
        
         $this->load->view('templates/adminfooter', $data);
     }
+
+    public function archiveArticle($articleId) {
+        $this->load->model('article_model');
+        $result = $this->article_model->archive_article($articleId);
+    
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
+
+    public function unarchiveArticle($articleId) {
+        $this->load->model('article_model');
+        $result = $this->article_model->unarchive_article($articleId);
+    
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
+    
+    public function publishArticle($articleId) {
+        $this->load->model('article_model');
+        $result = $this->article_model->publish_article($articleId);
+    
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
+    
+    public function unpublishArticle($articleId) {
+        $this->load->model('article_model');
+        $result = $this->article_model->unpublish_article($articleId);
+    
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
+    
+    
 }
 ?>

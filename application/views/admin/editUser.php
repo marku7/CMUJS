@@ -25,7 +25,7 @@
       <div class="sidebar__menu">
           <div class="sidebar__link">
             <i class="fa fa-home"></i>
-            <a href="index">Dashboard</a>
+            <a href="../index">Dashboard</a>
           </div>
           <h2>Management</h2>
           <div class="sidebar__link active_menu_link">
@@ -59,10 +59,10 @@
               <br>
             </div>
           </div>
-            <?php echo $user['userid']; ?>
                 <?php echo validation_errors(); ?>
                 <?php echo form_open('admin/editUser'); ?>
-                <form action="">
+                <form action="<?php echo site_url('admin/editUser/'.$user['userid']);?>" method="POST">
+                <?php echo "Form submitted with userId: ".$user['userid']."<br>";?>
                 <input type="hidden" name="userId" value="<?php echo $user['userid']; ?>"> 
                     <div class="nice-form-group">
                         <label>Email</label>

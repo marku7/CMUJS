@@ -79,7 +79,7 @@ html, body {
         <div class="sidebar__menu">
           <div class="sidebar__link">
             <i class="fa fa-home"></i>
-            <a href="index">Dashboard</a>
+            <a href="../index">Dashboard</a>
           </div>
           <h2>Management</h2>
           <div class="sidebar__link active_menu_link">
