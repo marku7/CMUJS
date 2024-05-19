@@ -63,9 +63,14 @@
       </td>
         <td><a href="<?php echo base_url('admin/editUser/'.$user['userid']); ?>" title="Edit User"><i class="fa fa-pencil" aria-hidden="true"></i></a> 
         <a href="<?php echo base_url('admin/viewUser/'.$user['userid']); ?>" title="View User" ><i class="fa fa-eye" aria-hidden="true"></i></a>
-        <a href="<?php echo base_url('admin/removeUser/'.$user['userid']); ?>" title="Remove User"><i class="fa fa-ban" aria-hidden="true"></i></a></td>
+        <?php if ($user['status'] == 0): ?>
+          <a href="<?php echo base_url('admin/enableUser/'.$user['userid']); ?>" title="Enable User"><i class="fa fa-toggle-off" aria-hidden="true"></i></a>
+        <?php else: ?>
+          <a href="<?php echo base_url('admin/disableUser/'.$user['userid']); ?>" title="Disable User"><i class="fa fa-toggle-on" aria-hidden="true"></i></a>
+        <?php endif; ?>
+        <a href="<?php echo base_url('admin/removeUser/'.$user['userid']); ?>" title="Remove User"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
       </tr>
-    <?php endforeach; ?>
+    <?php endforeach; ?>  
   </tbody>
 </table>
 </div>

@@ -51,7 +51,7 @@
             <a href="#" class="unpublish-article" data-id="<?php echo $article['articleid']; ?>" title="Unpublish Article"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
           <?php endif; ?>
           <a href="#" class="archive-article" data-id="<?php echo $article['articleid']; ?>" title="Archive Article"><i class="fa fa-archive" aria-hidden="true"></i></a>
-          <a href="#" title="Remove Article"><i class="fa fa-trash" aria-hidden="true"></i></a>
+          <a href="<?php echo base_url('admin/removeArticle/'.$article['articleid']); ?>" title="Remove Article"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
       </tr>
     <?php endforeach; ?>

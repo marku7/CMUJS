@@ -16,5 +16,9 @@
             $query = $this->db->get_where('authors', array('authorID' => $id));
             return $query->row_array();
         }
+
+        public function remove_author($authID) {
+            return $this->db->delete('authors', array('authorID' => $authID));
+        }
 }
 ?>

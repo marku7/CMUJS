@@ -20,6 +20,16 @@
         public function remove_user($userId) {
             return $this->db->delete('users', array('userid' => $userId));
         }
+
+        public function disable_user($userId) {
+            $this->db->where('userid', $userId);
+            return $this->db->update('users', ['status' => 0]);
+        }
+
+        public function enable_user($userId) {
+            $this->db->where('userid', $userId);
+            return $this->db->update('users', ['status' => 1]);
+        }
         
         public function authenticate_user($email, $password) {
             $query = $this->db->get_where('users', array('email' => $email, 'password' => $password));

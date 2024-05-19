@@ -21,6 +21,10 @@
             return $result;
         }
 
+        public function remove_article($articleID) {
+            return $this->db->delete('articles', array('articleid' => $articleID));
+        }
+
         public function archive_article($articleId) {
             $this->db->where('articleid', $articleId);
             return $this->db->update('articles', ['isArchive' => 1]);

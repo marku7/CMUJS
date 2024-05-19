@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="../assets/css/form.css">
+<link rel="stylesheet" href="../assets/css/style.css">
 <body id="body">
     <div class="container">  
       <nav class="navbar">

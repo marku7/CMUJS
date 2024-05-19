@@ -107,6 +107,34 @@ class Admin extends CI_Controller {
         $this->load->view('templates/adminfooter', $data);
     }
 
+    public function addVolume() {
+        $data['active_page'] = 'volume';
+        $data['users_content'] = 'admin/addVolume';
+        $this->load->helper(array('form', 'url'));
+        $this->load->view('templates/adminheader', $data);
+        $this->load->library('form_validation');
+    
+        $this->form_validation->set_rules('name', 'name', 'required');
+        $this->form_validation->set_rules('description', 'description', 'required');
+    
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->load->view('admin/addVolume', $data); 
+        }
+        else
+        {
+            $this->load->model('volume_model'); 
+            if ($this->volume_model->add_volume()) { 
+                redirect('admin/volume');
+            } else {
+                echo "Failed to add volume!";
+            }
+        }
+        
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('templates/adminfooter', $data);
+    }
+
     public function removeUser($userId) {
         $result = $this->user_model->remove_user($userId);
     
@@ -114,6 +142,38 @@ class Admin extends CI_Controller {
             redirect('admin/user');
         } else {
             echo "Failed to remove user!";
+        }
+    }
+
+    public function removeVol($volumeID) {
+        $result = $this->volume_model->remove_vol($volumeID);
+    
+        if ($result) {
+            redirect('admin/volume');
+        } else {
+            echo "Failed to remove volume!";
+        }
+    }
+
+    public function disableUser($userId) {
+        $this->load->model('user_model');
+        $result = $this->user_model->disable_user($userId);
+    
+        if ($result) {
+            redirect('admin/user');
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
+
+    public function enableUser($userId) {
+        $this->load->model('user_model');
+        $result = $this->user_model->enable_user($userId);
+    
+        if ($result) {
+            redirect('admin/user');
+        } else {
+            echo json_encode(['status' => 'error']);
         }
     }
 
@@ -150,6 +210,21 @@ class Admin extends CI_Controller {
         }
     }
     
+    public function editVolume($volumeID){
+        echo "Received volumeID: ". $volumeID;
+        $data['volume'] = $this->volume_model->get_volumes($volumeID);
+
+        if (empty($data['volume'])){
+            show_404();
+        }
+
+        $data['title'] = 'Edit Volume';
+
+        $this->load->view('templates/adminheader', $data);
+        $this->load->view('admin/editVolume', $data);
+        $this->load->view('templates/adminfooter', $data);
+    }
+
     public function viewUser($userId = NULL) {
         $data['active_page'] = 'user';
         $data['user'] = $this->user_model->get_users($userId); 
@@ -157,7 +232,16 @@ class Admin extends CI_Controller {
         $this->load->helper('url');
         $this->load->view('templates/adminheader', $data);
         $this->load->view($data['view_user'], $data);
-       
+        $this->load->view('templates/adminfooter', $data);
+    }
+
+    public function viewAuthor($authorID = NULL) {
+        $data['active_page'] = 'author';
+        $data['author'] = $this->author_model->get_authors($authorID); 
+        $data['view_author'] = 'admin/viewAuthor';
+        $this->load->helper('url');
+        $this->load->view('templates/adminheader', $data);
+        $this->load->view($data['view_author'], $data);
         $this->load->view('templates/adminfooter', $data);
     }
 
@@ -205,6 +289,35 @@ class Admin extends CI_Controller {
         }
     }
     
+    public function removeAuthor($authID) {
+        $result = $this->author_model->remove_author($authID);
     
+        if ($result) {
+            redirect('admin/author');
+        } else {
+            echo "Failed to remove author!";
+        }
+    }
+
+    public function disableAuthor($authID) {
+        $this->load->model('article_model');
+        $result = $this->article_model->disableAuthor($authID);
+    
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
+
+    public function removeArticle($articleID) {
+        $result = $this->article_model->remove_article($articleID);
+    
+        if ($result) {
+            redirect('admin/article');
+        } else {
+            echo "Failed to remove article!";
+        }
+    }
 }
 ?>
