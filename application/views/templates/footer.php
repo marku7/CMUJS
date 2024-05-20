@@ -1,5 +1,5 @@
 <div style="text-align: center; margin-top: 20px;">
-    <img src="assets/img/js.png" alt="">
+    <img src="assets/img/js.png" alt="" height="100px">
     <h2><b>CMU Journal of Science</b></h2>
     <h6>Central Mindanao University</h6>
     <h6>Sayre Highway, Musuan, Maramag, Bukidnon</h6>

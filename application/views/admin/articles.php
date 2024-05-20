@@ -51,6 +51,11 @@
           <?php else: ?>
             <a href="#" class="unpublish-article" data-id="<?php echo $article['articleid']; ?>" title="Unpublish Article"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
           <?php endif; ?>
+          <?php if ($article['feature'] == 0): ?>
+            <a href="#" class="tag-highlight" data-id="<?php echo $article['articleid']; ?>" title="Highlight Article"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+          <?php else: ?>
+            <a href="#" class="untag-highlight" data-id="<?php echo $article['articleid']; ?>" title="Untag Highlight"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+          <?php endif; ?>
           <a href="#" class="archive-article" data-id="<?php echo $article['articleid']; ?>" title="Archive Article"><i class="fa fa-archive" aria-hidden="true"></i></a>
           <a href="<?php echo base_url('admin/removeArticle/'.$article['articleid']); ?>" title="Remove Article"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
@@ -104,6 +109,54 @@ document.addEventListener('DOMContentLoaded', function() {
                     location.reload();
                 } else {
                     alert('Failed to unpublish the article.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    document.querySelectorAll('.tag-highlight').forEach(function(publishLink) {
+        publishLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            const articleId = this.getAttribute('data-id');
+
+            fetch('<?php echo base_url('admin/tagArticle/'); ?>' + articleId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
+                } else {
+                    alert('Failed to tag the article.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    document.querySelectorAll('.untag-highlight').forEach(function(publishLink) {
+        publishLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            const articleId = this.getAttribute('data-id');
+
+            fetch('<?php echo base_url('admin/untagArticle/'); ?>' + articleId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
+                } else {
+                    alert('Failed to untag the article.');
                 }
             })
             .catch(error => console.error('Error:', error));

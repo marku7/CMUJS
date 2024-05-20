@@ -2,20 +2,20 @@
   <div class="container-fluid">
   <a class="navbar-brand" href="<?php echo base_url(); ?>">
       <img src="assets/img/js.png" alt="CMU Journal Logo" style="height: 50px; width: auto; margin-right: 5px;">
-      CMU Journal of Science <p style="font-size: 12px; margin-left: 60px; margin-top: -15px;"><i>by Mark Yaba</i></p>
+      CMU Journal of Science <p style="font-size: 15px; margin-left: 60px; margin-top: -15px;"><i>by Mark Yaba</i></p>
     </a>
     
-    <div class="collapse navbar-collapse" id="navbarColor01" style="margin-left: 300px;">
+    <div class="collapse navbar-collapse" id="navbarColor01" style="margin-left: 300px; font-size:20px;">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link <?php echo $active_page === 'home' ? 'active' : ''; ?>" href="<?php echo base_url('home'); ?>">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php echo $active_page === 'announcements' ? 'active' : ''; ?>" href="<?php echo base_url('announcements'); ?>">Announcement</a>
+          <a class="nav-link <?php echo $active_page === 'articles' ? 'active' : ''; ?>" href="<?php echo base_url('articles'); ?>">Articles</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link <?php echo $active_page === 'issues' ? 'active' : ''; ?>" href="<?php echo base_url('issues'); ?>">Current Issue</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link <?php echo $active_page === 'archives' ? 'active' : ''; ?>" href="<?php echo base_url('archives'); ?>">Archives</a>
         </li>

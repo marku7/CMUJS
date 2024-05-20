@@ -21,6 +21,55 @@
             return $result;
         }
 
+        public function get_articles_home($id = FALSE) {
+            $this->db->select('*')
+                     ->from('articles')
+                     ->where('isArchive', 0)
+                     ->where('feature', 1)
+                     ->where('isPublished', 1);
+        
+            if ($id !== FALSE) {
+                $this->db->where('articleid', $id);
+            }
+        
+            $result = $this->db->get()->result_array();
+        
+            return $result;
+        }
+
+        public function get_articles_art($id = FALSE) {
+            $this->db->select('*')
+                     ->from('articles')
+                     ->where('isArchive', 0)
+                     ->where('isPublished', 1);
+        
+            if ($id !== FALSE) {
+                $this->db->where('articleid', $id);
+            }
+        
+            $result = $this->db->get()->result_array();
+        
+            return $result;
+        }
+
+        
+        
+
+        public function get_archive_articles($id = FALSE){
+    
+            $query = $this->db->select('*')
+                              ->from('articles');
+            $query->where('isArchive', 1);
+    
+            if($id!== FALSE){
+                $query->where('articleid', $id);
+            }
+    
+            $result = $query->get()->result_array();
+    
+            return $result;
+        }
+
         public function remove_article($articleID) {
             return $this->db->delete('articles', array('articleid' => $articleID));
         }
@@ -57,6 +106,16 @@
                 'isPublished' => 0 
             );
             return $this->db->insert('articles', $data);
+        }
+
+        public function tag_article($articleId) {
+            $this->db->where('articleid', $articleId);
+            return $this->db->update('articles', ['feature' => 1]);
+        }
+
+        public function untag_article($articleId) {
+            $this->db->where('articleid', $articleId);
+            return $this->db->update('articles', ['feature' => 0]);
         }
         
         

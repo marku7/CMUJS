@@ -386,5 +386,27 @@ class Admin extends CI_Controller {
             echo "Failed to remove archive!";
         }
     }
+
+    public function tagArticle($articleId) {
+        $this->load->model('article_model');
+        $result = $this->article_model->tag_article($articleId);
+    
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
+
+    public function untagArticle($articleId) {
+        $this->load->model('article_model');
+        $result = $this->article_model->untag_article($articleId);
+    
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
 }
 ?>

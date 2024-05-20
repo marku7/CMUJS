@@ -6,20 +6,20 @@
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-        <a href="#">
-        <h2>ARCHIVES</h2>
-        </a>
-      <?php foreach ($archives as $archive): ?>
+    <a href="articles">
+    <h2>ARTICLES</h2>
+    </a>
+      <?php foreach ($articles as $article): ?>
         <div class="card" style="width: 100%;">
-          <div class="archive-content">
-            <img src="assets/img/archiveIMG.png" alt="Archive Image" width="200px">
-            <div class="archive-details">
-            <h4 style="font-weight: bold;"><?php echo $archive['title']; ?></h4>
-            <h6><?php echo $archive['created_at']; ?></h6>
-              <p><b><i>Volume <?php echo $archive['volumeid']; ?></i><br></p></b>
-              <p><i><b>DOI:</b></i><?php echo $archive['doi']; ?></p>
-              <p><b>Keywords: </b><br><?php echo $archive['keywords']; ?></p>
-            </div> 
+          <div class="article-content">
+            <img src="assets/img/articleIMG.png" alt="Article Image" width="200px">
+            <div class="article-details">
+              <h4 style="font-weight: bold;"><?php echo $article['title']; ?></h4>
+              <h6><?php echo $article['created_at']; ?></h6>
+              <p><b><i>Volume <?php echo $article['volumeid']; ?></i><br></p></b>
+              <p><i><b>DOI:</b></i><?php echo $article['doi']; ?></p>
+              <p><b>Keywords: </b><br><?php echo $article['keywords']; ?></p>
+            </div>
           </div>
         </div>
       <?php endforeach; ?>
