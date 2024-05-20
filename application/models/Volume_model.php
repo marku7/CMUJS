@@ -21,6 +21,7 @@
             $data = array(
                 'vol_name' => $this->input->post('name'),
                 'description' => $this->input->post('description'),
+                'published' => 1,
             );
             return $this->db->insert('volume', $data);
         }
@@ -38,6 +39,16 @@
 
         public function remove_vol($volumeID) {
             return $this->db->delete('volume', array('volumeid' => $volumeID));
+        }
+
+        public function publish_volume($volumeID) {
+            $this->db->where('volumeid', $volumeID);
+            return $this->db->update('volume', ['published' => 1]);
+        }
+        
+        public function unpublish_volume($volumeID) {
+            $this->db->where('volumeid', $volumeID);
+            return $this->db->update('volume', ['published' => 0]);
         }
 }
 ?>

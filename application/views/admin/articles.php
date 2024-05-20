@@ -6,6 +6,7 @@
         </div>
         <div class="navbar__left">
           <a class="active_link" href="#">Article Management</a>
+          <a href="addArticle">Add New Article</a>
         </div>
         <div class="navbar__right">
           <a href="#">
@@ -44,7 +45,7 @@
         <td><?php echo $article['volumeid']; ?></td>
         <td><?php echo $article['keywords']; ?></td>
         <td>
-          <!-- <a href="#" title="Edit Article"><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
+          <a href="#" title="Edit Article"><i class="fa fa-pencil" aria-hidden="true"></i></a>
           <?php if ($article['isPublished'] == 0): ?>
             <a href="#" class="publish-article" data-id="<?php echo $article['articleid']; ?>" title="Publish Article"><i class="fa fa-eye" aria-hidden="true"></i></a>
           <?php else: ?>

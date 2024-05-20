@@ -46,7 +46,11 @@
         <td><?php echo $volume['description']; ?></td>
         <td><?php echo $volume['date_at']; ?></td>
         <td><a href="<?php echo base_url('admin/editVolume/'.$volume['volumeid']);?>" title="Edit Volume"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-        <a href="" title="View Volume"><i class="fa fa-eye" aria-hidden="true"></i></a>
+        <?php if ($volume['published'] == 0): ?>
+            <a href="#" class="publish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Publish Article"><i class="fa fa-eye" aria-hidden="true"></i></a>
+          <?php else: ?>
+            <a href="#" class="unpublish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Unpublish Article"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+          <?php endif; ?>
         <a href="<?php echo base_url('admin/removeVol/'.$volume['volumeid']); ?>" title="Remove Volume"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
       </tr>
     <?php endforeach; ?>
@@ -54,3 +58,54 @@
 </table>
 </div>
 </main>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.publish-volume').forEach(function(publishLink) {
+        publishLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            const volumeID = this.getAttribute('data-id');
+
+            fetch('<?php echo base_url('admin/publishVolume/'); ?>' + volumeID, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
+                } else {
+                    alert('Failed to publish the volume.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    document.querySelectorAll('.unpublish-volume').forEach(function(unpublishLink) {
+        unpublishLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            const volumeID = this.getAttribute('data-id');
+
+            fetch('<?php echo base_url('admin/unpublishVolume/'); ?>' + volumeID, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
+                } else {
+                    alert('Failed to unpublish the volume.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+});
+</script>

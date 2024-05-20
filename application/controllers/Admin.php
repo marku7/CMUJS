@@ -107,6 +107,41 @@ class Admin extends CI_Controller {
         $this->load->view('templates/adminfooter', $data);
     }
 
+    public function addArticle() {
+        $data['active_page'] = 'article';
+
+        $query = $this->db->get('volume');
+        $volumes = $query->result_array();
+
+        $data['volumes'] = $volumes;
+        
+        $data['articles_content'] = 'admin/addArticle';
+        $this->load->helper(array('form', 'url'));
+        $this->load->view('templates/adminheader', $data);
+        $this->load->library('form_validation');
+    
+        $this->form_validation->set_rules('title', 'title', 'required');
+        $this->form_validation->set_rules('keywords', 'keywords', 'required');
+        $this->form_validation->set_rules('doi', 'DOI', 'required');
+    
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->load->view('admin/addArticle', $data); 
+        }
+        else
+        {
+            $this->load->model('article_model'); 
+            if ($this->article_model->add_article()) { 
+                redirect('admin/article');
+            } else {
+                echo "Failed to add article!";
+            }
+        }
+        
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('templates/adminfooter', $data);
+    }
+
     public function addVolume() {
         $data['active_page'] = 'volume';
         $data['users_content'] = 'admin/addVolume';
@@ -288,6 +323,28 @@ class Admin extends CI_Controller {
             echo json_encode(['status' => 'error']);
         }
     }
+
+    public function publishVolume($volumeid) {
+        $this->load->model('volume_model');
+        $result = $this->volume_model->publish_volume($volumeid);
+    
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
+    
+    public function unpublishVolume($volumeid) {
+        $this->load->model('volume_model');
+        $result = $this->volume_model->unpublish_volume($volumeid);
+    
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
     
     public function removeAuthor($authID) {
         $result = $this->author_model->remove_author($authID);
@@ -317,6 +374,16 @@ class Admin extends CI_Controller {
             redirect('admin/article');
         } else {
             echo "Failed to remove article!";
+        }
+    }
+
+    public function removeArchive($articleID) {
+        $result = $this->article_model->remove_article($articleID);
+    
+        if ($result) {
+            redirect('admin/archive');
+        } else {
+            echo "Failed to remove archive!";
         }
     }
 }

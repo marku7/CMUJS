@@ -8,3 +8,13 @@
     display: inline-block;
   }
   
+  textarea {
+    width: 300px; /* Set the desired width */
+    height: 100px; /* Set the desired height */
+    padding: 10px; /* Optional: Add padding for better spacing */
+    border: 1px solid #ccc; /* Optional: Add border styling */
+    border-radius: 4px; /* Optional: Add rounded corners */
+    font-size: 20px; /* Optional: Set font size */
+    resize: none; /* Optional: Prevent resizing */
+  }
+  

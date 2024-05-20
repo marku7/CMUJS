@@ -19,10 +19,10 @@ class Total_model extends CI_Model {
     }
 
     public function get_total_archives() {
-        $query = $this->db->query("SELECT COUNT(*) as total_archives FROM archives");
-        $result = $query->row_array();
-        return $result['total_archives'];
-    }
+        $this->db->where('isArchive', 1);
+        $this->db->from('articles');
+        return $this->db->count_all_results();
+    }    
 
     public function get_total_authors() {
         $query = $this->db->query("SELECT COUNT(*) as total_authors FROM authors");

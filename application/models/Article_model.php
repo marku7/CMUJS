@@ -45,6 +45,20 @@
             return $this->db->update('articles', ['isPublished' => 0]);
         }
         
+        public function add_article(){
+            $data = array(
+                'articleid' => $this->input->post('articleid'),
+                'title' => $this->input->post('title'),
+                'abstract' => $this->input->post('abstract'),
+                'keywords' => $this->input->post('keywords'),
+                'doi' => $this->input->post('doi'),
+                'volumeid' => $this->input->post('volumeid'),
+                'isArchive' => 0,
+                'isPublished' => 0 
+            );
+            return $this->db->insert('articles', $data);
+        }
+        
         
     }
     
