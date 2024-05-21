@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="assets/css/home.css">
+<link rel="stylesheet" href="assets/css/button.css">
 <body>
 <div class="header-img">
   <img src="assets/img/cover.png" alt="Cover Image">
@@ -62,6 +63,12 @@
       <?php foreach ($volumes as $volume): ?>
         <a href="<?php echo site_url('volume/view/' . $volume['volumeid']); ?>">* <?php echo $volume['vol_name']; ?></a><br>
       <?php endforeach; ?>
+    </div>
+    <div class="card">
+      <button class="button" type="submit">
+  <span class="button-text" style="font-size: 20px;">Make a Submission</span>
+  <div class="fill-container"></div>
+</button>
     </div>
   </div>
 </div>

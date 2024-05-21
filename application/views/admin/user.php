@@ -61,7 +61,7 @@
           }
           ?>
       </td>
-        <td><a href="<?php echo base_url('admin/editUser/'.$user['userid']); ?>" title="Edit User"><i class="fa fa-pencil" aria-hidden="true"></i></a> 
+        <td><a href="<?php echo base_url('admin/updateNow/'.$user['userid']); ?>" title="Edit User"><i class="fa fa-pencil" aria-hidden="true"></i></a> 
         <a href="<?php echo base_url('admin/viewUser/'.$user['userid']); ?>" title="View User" ><i class="fa fa-eye" aria-hidden="true"></i></a>
         <?php if ($user['status'] == 0): ?>
           <a href="<?php echo base_url('admin/enableUser/'.$user['userid']); ?>" title="Enable User"><i class="fa fa-toggle-off" aria-hidden="true"></i></a>

@@ -52,9 +52,6 @@
             return $result;
         }
 
-        
-        
-
         public function get_archive_articles($id = FALSE){
     
             $query = $this->db->select('*')

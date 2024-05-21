@@ -54,7 +54,10 @@
         </div>
  </div>
 <input type="hidden" name="articleid" value="<?php echo uniqid(); ?>">
+<label for="file">Upload File:</label>
+<input type="file" id="file" name="file" accept=".pdf" required>
 <br>
+
 <button class="button" type="submit">
   <span class="button-text">Submit</span>
   <div class="fill-container"></div>

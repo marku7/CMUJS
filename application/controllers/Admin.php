@@ -214,8 +214,6 @@ class Admin extends CI_Controller {
 
     public function editUser($userId) {
         $data['userId'] = $userId;
-        echo 'Received userId: '. $userId;
-        echo "In editUser method with userId: $userId<br>";
         $data['active_page'] = 'user';
         $data['users_content'] = 'admin/editUser';
         $this->load->helper(array('form', 'url'));
@@ -242,6 +240,47 @@ class Admin extends CI_Controller {
             } else {
                 echo "Failed to edit user!";
             }
+        }
+    }
+
+    public function updateNow($userId) {
+        $page['active_page'] = 'user';
+        $data['users'] = 'admin/updateNow';
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('name', 'Full Name', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            // Load the user data to pre-fill the form
+            $data['user'] = $this->crud_user_model->getUserById($userId);
+
+            // Load views
+            $this->load->view('templates/adminheader');
+            $this->load->view('admin/editUser', $data);
+            $this->load->view('admin/sidebar', $page);
+            $this->load->view('templates/adminfooter');
+        } else {
+            // Prepare submission data
+            $submission_data = array(
+                'email' => $this->input->post('email'),
+                'complete_name' => $this->input->post('name'),
+                'pword' => $this->input->post('password'),
+            );
+
+            // Update the user information
+            $this->crud_user_model->updateUser($submission_data, $userId);
+
+            // Update user submission information
+            $submission_id = $this->crud_user_model->getSubmissionId($userId);
+            if ($submission_id) {
+                $this->crud_user_model->updateUserSubmission($submission_data, $submission_id);
+            }
+
+            // Redirect to the user management page
+            redirect(base_url('admin/user'));
         }
     }
     
