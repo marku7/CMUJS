@@ -7,8 +7,7 @@ class CRUD_user_model extends CI_Model{
             'pword' => $this->input->post('password'),
             'email' => $this->input->post('email'),
             'role' => $this->input->post('role'),
-            'status' => $this->input->post(''),
-            'userid' => $this->input->post('user_id')
+            'status' => 0,
         );
         return $this->db->insert('users', $data);
     }

@@ -30,21 +30,22 @@
           </div>
   <thead>
     <tr>
-      <th scope="col">Article ID</th>
-      <th scope="col">Article Title</th>
       <th scope="col">Volume</th>
+      <th scope="col">Article Title</th>
       <th scope="col">Key Words</th>
+      <th scope="col">DOI</th>
       <th scope="col">Manage</th>
     </tr>
   </thead>
   <tbody>
     <?php foreach ($articles as $article): ?>
       <tr>
-        <td><?php echo $article['articleid']; ?></td>
+        <td><?php echo $article['vol_name']; ?></td>
         <td><?php echo $article['title']; ?></td>
-        <td><?php echo $article['volumeid']; ?></td>
         <td><?php echo $article['keywords']; ?></td>
-        <td>
+        <td><?php echo $article['doi']; ?></td>
+        <td style="font-size: 18px;">
+            <a href="<?php echo base_url('admin/viewArt/'.$article['articleid']); ?>" title="View Article"><i class="fa fa-expand" aria-hidden="true"></i></a>
           <a href="<?php echo base_url('admin/updateArt/'.$article['articleid']); ?>" title="Edit Article"><i class="fa fa-pencil" aria-hidden="true"></i></a>
           <?php if ($article['isPublished'] == 0): ?>
             <a href="#" class="publish-article" data-id="<?php echo $article['articleid']; ?>" title="Publish Article"><i class="fa fa-eye" aria-hidden="true"></i></a>

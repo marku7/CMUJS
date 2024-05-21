@@ -30,19 +30,18 @@
     </div>
   <thead>
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Email</th>
       <th scope="col">Full Name</th>
+      <th scope="col">Email</th>
       <th scope="col">Role</th>
+      <th scope="col">Status</th>
       <th scope="col">Manage</th>
     </tr>
   </thead>
   <tbody>
     <?php foreach ($users as $user): ?>
       <tr>
-        <td><?php echo $user['userid']; ?></td>
-        <td><?php echo $user['email']; ?></td>
         <td><?php echo $user['complete_name']; ?></td>
+        <td><?php echo $user['email']; ?></td>
         <td>
           <?php
           switch ($user['role']) {
@@ -61,13 +60,15 @@
           }
           ?>
       </td>
+      <td style="text-decoration: none;">
+      <?php if ($user['status'] == 0): ?>
+          <a href="<?php echo base_url('admin/enableUser/'.$user['userid']); ?>" title="Enable User"><i class="fa fa-toggle-off" aria-hidden="true" style="color: #F1BD07; font-size: 24px;"></i></a>
+        <?php else: ?>
+          <a href="<?php echo base_url('admin/disableUser/'.$user['userid']); ?>" title="Disable User"><i class="fa fa-toggle-on" aria-hidden="true" style="color: #F1BD07; font-size: 24px;"></i></a>
+        <?php endif; ?>
+      </td>
         <td><a href="<?php echo base_url('admin/updateNow/'.$user['userid']); ?>" title="Edit User"><i class="fa fa-pencil" aria-hidden="true"></i></a> 
         <a href="<?php echo base_url('admin/viewUser/'.$user['userid']); ?>" title="View User" ><i class="fa fa-eye" aria-hidden="true"></i></a>
-        <?php if ($user['status'] == 0): ?>
-          <a href="<?php echo base_url('admin/enableUser/'.$user['userid']); ?>" title="Enable User"><i class="fa fa-toggle-off" aria-hidden="true"></i></a>
-        <?php else: ?>
-          <a href="<?php echo base_url('admin/disableUser/'.$user['userid']); ?>" title="Disable User"><i class="fa fa-toggle-on" aria-hidden="true"></i></a>
-        <?php endif; ?>
         <a href="<?php echo base_url('admin/removeUser/'.$user['userid']); ?>" title="Remove User"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
       </tr>
     <?php endforeach; ?>  

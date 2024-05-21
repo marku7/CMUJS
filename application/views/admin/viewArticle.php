@@ -5,45 +5,70 @@
 
 html, body {
   font-family: "Lato", sans-serif;
-  margin: 0; 
-  padding: 0; 
+  margin: 0;
+  padding: 0 !important;
   background: #f1f1f1;
   height: 100%;
 }
 
 .container {
-  margin: 0; 
-  padding: 0; 
-  width: 100%; 
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
-.leftcolumn {   
-  float: left;
+.navbar {
+  flex: 0 0 auto;
+}
+
+#sidebar {
+  flex: 0 0 auto;
+}
+
+.main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.leftcolumn {
+  flex: 1;
   width: 100%;
 }
 
 .card {
   background-color: white;
-  padding: 0;
+  padding: 20px;
   margin-top: 10px;
+  width: 100% !important;
   height: 100% !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  flex: 1 0 auto; /* Allow card to grow and take remaining space */
 }
 
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+.row {
+  display: flex;
+  flex: 1 0 auto; /* Allow row to grow and take remaining space */
+}
+
+.article-content {
+  display: flex;
+  flex-direction: column;
+  margin-top: -70px;
+}
+
+.article-details {
+  margin-top: 10px;
 }
 
 @media screen and (max-width: 800px) {
-  .leftcolumn, .rightcolumn {   
+  .leftcolumn, .rightcolumn {
     width: 100%;
     padding: 0;
   }
-}
-
-#sidebar {
-  padding: 0;
 }
 </style>
 </head>
@@ -56,9 +81,9 @@ html, body {
           <i class="fa fa-bars" aria-hidden="true"></i>
         </div>
         <div class="navbar__left">
-          <a  href="../user">User Management</a>
-          <a href="../addUser">Register New User</a>
-          <a class="active_link" href="">View User</a>
+          <a  href="../article">Article Management</a>
+          <a href="../addArticle">Add New Article</a>
+          <a class="active_link" href="#">View Article</a>
         </div>
       </nav>
       
@@ -68,12 +93,6 @@ html, body {
             <img src="../../assets/img/js.png" alt="logo" />
             <h1>CMU JS</h1>
           </div>
-          <i
-            onclick="closeSidebar()"
-            class="fa fa-times"
-            id="sidebarIcon"
-            aria-hidden="true"
-          ></i>
         </div>
                   
         <div class="sidebar__menu">
@@ -82,11 +101,11 @@ html, body {
             <a href="../index">Dashboard</a>
           </div>
           <h2>Management</h2>
-          <div class="sidebar__link active_menu_link">
+          <div class="sidebar__link">
             <i class="fa fa-user" aria-hidden="true"></i>
             <a href="<?php echo base_url('admin/user'); ?>">User Management</a>
           </div>
-          <div class="sidebar__link">
+          <div class="sidebar__link active_menu_link">
             <i class="fa fa-newspaper-o"></i>
             <a href="<?php echo base_url('admin/article'); ?>">Article Management</a>
           </div>
@@ -110,40 +129,25 @@ html, body {
       </div>
 
       <main>
-        <div class="main__container">
-          <div class="main__title">
-            <img src="assets/hello.svg" alt="" />
-            <div class="main__greeting">
-              <h1><?php echo $user['complete_name']; ?></h1>
-              <?php
-                switch ($user['role']) {
-                    case 1:
-                        echo "Author";
-                        break;
-                    case 2:
-                        echo "Researcher";
-                        break;
-                    case 3:
-                        echo "Evaluator";
-                        break;
-                    default:
-                        echo "Unknown";
-                        break;
-                    }
-                ?>
-              <br>
-            </div>
-          </div>
-          <div class="row">
-            <div class="leftcolumn">
-              <div class="card">
-                <h2><?php echo $user['complete_name']; ?></h2>
-                <h5><?php echo $user['email']; ?></h5>
-              </div>
-            </div>
+<link rel="stylesheet" href="<?php echo base_url('assets/css/home.css'); ?>">
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card" >
+      <h1><?php echo $article['vol_name']; ?></h1>
+      <div class="card" style="width: 100%;">
+        <div class="article-content">
+          <img src="<?php echo base_url('assets/img/archiveIMG.png'); ?>" alt="Volume Image" width="200px">
+          <div class="article-details">
+            <h2 style="font-weight: bold;"><?php echo $article['title']; ?></h2>
+            <h6><?php echo $article['created_at']; ?></h6><br>
+            <p><i><b>DOI: </b></i><?php echo $article['doi']; ?></p>
+            <p><b>Keywords: </b><br><?php echo $article['keywords']; ?></p>
+           <br><b>Abstract:</b><br><?php echo $article['abstract']; ?>
           </div>
         </div>
-      </main>
+      </div>
     </div>
-</body>
-</html>
+  </div>
+</div>
+</main>
+</div>

@@ -31,26 +31,24 @@
           </div>
   <thead>
     <tr>
-      <th scope="col">Volume ID</th>
       <th scope="col">Volume Name</th>
-      <th scope="col">Description</th>
       <th scope="col">Date Added</th>
+      <th scope="col">Status</th>
       <th scope="col">Manage</th>
     </tr>
   </thead>
   <tbody>
     <?php foreach ($volumes as $volume): ?>
       <tr>
-        <td><?php echo $volume['volumeid']; ?></td>
         <td><?php echo $volume['vol_name']; ?></td>
-        <td><?php echo $volume['description']; ?></td>
         <td><?php echo $volume['date_at']; ?></td>
-        <td><a href="<?php echo base_url('admin/editVolume/'.$volume['volumeid']);?>" title="Edit Volume"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-        <?php if ($volume['published'] == 0): ?>
-            <a href="#" class="publish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Publish Volume"><i class="fa fa-eye" aria-hidden="true"></i></a>
+        <td style="text-decoration: none;"><?php if ($volume['published'] == 0): ?>
+            <a href="#" class="publish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Publish Volume"><i class="fa fa-eye" aria-hidden="true" style="color: #F1BD07; font-size: 20px;"></i></a>
           <?php else: ?>
-            <a href="#" class="unpublish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Unpublish Volume"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-          <?php endif; ?>
+            <a href="#" class="unpublish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Unpublish Volume"><i class="fa fa-eye-slash" aria-hidden="true" style="color: #F1BD07; font-size: 20px;"></i></a>
+          <?php endif; ?></td>
+        <td><a href="<?php echo base_url('admin/viewVolume/'.$volume['volumeid']);?>" title="Edit Volume"><i class="fa fa-expand" aria-hidden="true"></i></a>
+        <a href="<?php echo base_url('admin/editVolume/'.$volume['volumeid']);?>" title="Edit Volume"><i class="fa fa-pencil" aria-hidden="true"></i></a>
         <a href="<?php echo base_url('admin/removeVol/'.$volume['volumeid']); ?>" title="Remove Volume"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
       </tr>
     <?php endforeach; ?>

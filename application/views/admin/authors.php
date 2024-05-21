@@ -29,7 +29,6 @@
           </div>
   <thead>
     <tr>
-      <th scope="col">Author ID</th>
       <th scope="col">Author Full Name</th>
       <th scope="col">Email</th>
       <th scope="col">Date Registered</th>
@@ -39,12 +38,11 @@
   <tbody>
     <?php foreach ($authors as $author): ?>
       <tr>
-        <td><?php echo $author['authorID']; ?></td>
         <td><?php echo $author['name']; ?></td>
         <td><?php echo $author['email']; ?></td>
         <td><?php echo $author['date_created']; ?></td>
         <td>
-        <a href="<?php echo base_url('admin/viewAuthor/'.$author['authorID']); ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+        <a href="<?php echo base_url('admin/viewAuthor/'.$author['authorID']); ?>"><i class="fa fa-expand" aria-hidden="true"></i></a>
         <a href="<?php echo base_url('admin/removeAuthor/'.$author['authorID']); ?>" title="Remove Author"><i class="fa fa-trash" aria-hidden="true"></i></a>
       </td>
       </tr>

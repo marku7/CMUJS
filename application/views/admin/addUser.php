@@ -36,26 +36,15 @@
   <label>Password</label>
   <input type="password" name="password" placeholder="Password" />
 </div>
-
 <div class="nice-form-group">
   <label>User Role</label>
-  <div class="radio-horizontal">
-    <div>
-      <input type="radio" id="author" name="role" value="1" checked>
-      <label for="author">Author</label>
-    </div>
-    <div>
-      <input type="radio" id="evaluator" name="role" value="2">
-      <label for="evaluator">Evaluator</label>
-    </div>
-    <div>
-      <input type="radio" id="researcher" name="role" value="3">
-      <label for="researcher">Researcher</label>
-    </div>
-  </div>
+  <select name="role">
+    <option value="1">Author</option>
+    <option value="2">Evaluator</option>
+    <option value="3">Researcher</option>
+  </select>
 </div>
 <br>
-<input type="hidden" name="user_id" value="<?php echo uniqid(); ?>">
 <button class="button" type="submit">
   <span class="button-text">Submit</span>
   <div class="fill-container"></div>

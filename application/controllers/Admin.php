@@ -342,6 +342,26 @@ class Admin extends CI_Controller {
         $this->load->view('templates/adminfooter', $data);
     }
 
+    public function viewArt($articleId = NULL) {
+        $data['active_page'] = 'article';
+        $data['article'] = $this->article_model->get_articles($articleId); 
+        $data['view_article'] = 'admin/viewArticle';
+        $this->load->helper('url');
+        $this->load->view('templates/adminheader', $data);
+        $this->load->view($data['view_article'], $data);
+        $this->load->view('templates/adminfooter', $data);
+    }
+
+    public function viewVolume($volumeid = NULL) {
+        $data['active_page'] = 'volume';
+        $data['volume'] = $this->volume_model->get_volumes($volumeid); 
+        $data['view_volume'] = 'admin/viewVolume';
+        $this->load->helper('url');
+        $this->load->view('templates/adminheader', $data);
+        $this->load->view($data['view_volume'], $data);
+        $this->load->view('templates/adminfooter', $data);
+    }
+
     public function viewAuthor($authorID = NULL) {
         $data['active_page'] = 'author';
         $data['author'] = $this->author_model->get_authors($authorID); 
