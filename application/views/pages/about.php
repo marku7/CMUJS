@@ -22,11 +22,12 @@
     </div>
   </div>
   <div class="rightcolumn">
-    <div class="card">
+  <div class="card">
       <h3>Announcement</h3>
-      <div class="fakeimg">Anouncement 1</div><br>
-      <div class="fakeimg">Anouncement 2</div><br>
-      <div class="fakeimg">Anouncement 3</div>
+      <div class="card">Update on User Registration Email Requirements for CMU Journal of Science</div><br>
+      <div class="card">Call for Papers for Volume 28 (2024)</div><br>
+      <div class="card">CMU Journal of Science is now transitioning to Open Journal System (OJS)</div>
+      <div class="card">Downloadable Files for Volume 22, Issue 1 (2018) and earlier</div>
     </div>
   </div>
 </div>

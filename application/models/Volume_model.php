@@ -38,8 +38,17 @@
         }
 
         public function remove_vol($volumeID) {
-            return $this->db->delete('volume', array('volumeid' => $volumeID));
+            $this->db->trans_start();
+        
+            $this->db->delete('articles', array('volumeid' => $volumeID));
+        
+            $this->db->delete('volume', array('volumeid' => $volumeID));
+       
+            $this->db->trans_complete();
+
+            return $this->db->trans_status();
         }
+        
 
         public function publish_volume($volumeID) {
             $this->db->where('volumeid', $volumeID);

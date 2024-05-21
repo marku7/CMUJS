@@ -47,9 +47,9 @@
         <td><?php echo $volume['date_at']; ?></td>
         <td><a href="<?php echo base_url('admin/editVolume/'.$volume['volumeid']);?>" title="Edit Volume"><i class="fa fa-pencil" aria-hidden="true"></i></a>
         <?php if ($volume['published'] == 0): ?>
-            <a href="#" class="publish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Publish Article"><i class="fa fa-eye" aria-hidden="true"></i></a>
+            <a href="#" class="publish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Publish Volume"><i class="fa fa-eye" aria-hidden="true"></i></a>
           <?php else: ?>
-            <a href="#" class="unpublish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Unpublish Article"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+            <a href="#" class="unpublish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Unpublish Volume"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
           <?php endif; ?>
         <a href="<?php echo base_url('admin/removeVol/'.$volume['volumeid']); ?>" title="Remove Volume"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
       </tr>

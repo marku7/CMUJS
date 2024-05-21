@@ -22,5 +22,44 @@ class Pages extends CI_Controller {
         $this->load->view('pages/' . $page, $data); 
         $this->load->view('templates/footer', $data);
     }
+
+    public function viewArticle($id) {
+        $this->load->helper('url');
+        $this->load->model('article_model');
+
+        $data['active_page'] = 'articles';
+
+        $data['article'] = $this->article_model->get_articles_view($id);
+        if (empty($data['article'])) {
+            show_404();
+        }
+
+        $data['title'] = $data['article']['title'];
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/viewnav', $data);
+        $this->load->view('pages/viewArticle', $data);
+        $this->load->view('templates/viewfoot', $data);
+    }
+
+    public function viewArchive($id) {
+        $this->load->helper('url');
+        $this->load->model('article_model');
+    
+        $data['active_page'] = 'archives';
+    
+        $data['article'] = $this->article_model->get_archive_view($id);
+        if (empty($data['article'])) {
+            show_404();
+        }
+    
+        $data['title'] = $data['article']['title'];
+    
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/viewnav', $data);
+        $this->load->view('pages/viewArchive', $data);
+        $this->load->view('templates/viewfoot', $data);
+    }
+    
 }
 ?>

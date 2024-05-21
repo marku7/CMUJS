@@ -7,6 +7,11 @@
         <div class="nav_icon" onclick="toggleSidebar()">
           <i class="fa fa-bars" aria-hidden="true"></i>
         </div>
+        <div class="navbar__left">
+        <a href="../user">User Management</a>
+          <a href="../addUser">Register New User</a>
+          <a class="active_link" href="#">Edit User</a>
+        </div>
       </nav>
       
       <div id="sidebar">

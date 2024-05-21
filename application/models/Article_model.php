@@ -22,17 +22,36 @@
         }
 
         public function get_articles_home($id = FALSE) {
+            $this->db->select('articles.*')
+                     ->from('articles')
+                     ->join('volume', 'articles.volumeid = volume.volumeid')
+                     ->where('articles.isArchive', 0)
+                     ->where('articles.feature', 1)
+                     ->where('articles.isPublished', 1)
+                     ->where('volume.published', 1);
+        
+            if ($id !== FALSE) {
+                $this->db->where('articles.articleid', $id);
+                $result = $this->db->get()->row_array();
+            } else {
+                $result = $this->db->get()->result_array();
+            }
+        
+            return $result;
+        }
+        
+        public function get_articles_view($id = FALSE) {
             $this->db->select('*')
                      ->from('articles')
                      ->where('isArchive', 0)
-                     ->where('feature', 1)
                      ->where('isPublished', 1);
         
             if ($id !== FALSE) {
-                $this->db->where('articleid', $id);
+                $this->db->where('articles.articleid', $id);
+                $result = $this->db->get()->row_array();
+            } else {
+                $result = $this->db->get()->result_array();
             }
-        
-            $result = $this->db->get()->result_array();
         
             return $result;
         }
@@ -52,20 +71,36 @@
             return $result;
         }
 
-        public function get_archive_articles($id = FALSE){
-    
-            $query = $this->db->select('*')
-                              ->from('articles');
-            $query->where('isArchive', 1);
-    
-            if($id!== FALSE){
-                $query->where('articleid', $id);
-            }
-    
-            $result = $query->get()->result_array();
-    
-            return $result;
+        public function get_archive_view($id) {
+            $this->db->select('articles.*')
+                     ->from('articles')
+                     ->join('volume', 'articles.volumeid = volume.volumeid')
+                     ->where('articles.isArchive', 1)
+                     ->where('volume.published', 1)
+                     ->where('articles.articleid', $id);
+        
+            $query = $this->db->get();
+        
+            // Return a single record instead of an array of records
+            return $query->row_array();
         }
+        
+
+        public function get_archive_articles($id = FALSE) {
+            $this->db->select('articles.*')
+                     ->from('articles')
+                     ->join('volume', 'articles.volumeid = volume.volumeid')
+                     ->where('articles.isArchive', 1)
+                     ->where('volume.published', 1);
+        
+            if ($id !== FALSE) {
+                $this->db->where('articles.articleid', $id);
+            }
+        
+            $result = $this->db->get()->result_array();
+        
+            return $result;
+        }        
 
         public function remove_article($articleID) {
             return $this->db->delete('articles', array('articleid' => $articleID));
@@ -100,6 +135,7 @@
                 'doi' => $this->input->post('doi'),
                 'volumeid' => $this->input->post('volumeid'),
                 'isArchive' => 0,
+                'feature' => 0,
                 'isPublished' => 0 
             );
             return $this->db->insert('articles', $data);
