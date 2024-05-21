@@ -45,7 +45,7 @@
         <td><?php echo $article['volumeid']; ?></td>
         <td><?php echo $article['keywords']; ?></td>
         <td>
-          <a href="#" title="Edit Article"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+          <a href="<?php echo base_url('admin/updateArt/'.$article['articleid']); ?>" title="Edit Article"><i class="fa fa-pencil" aria-hidden="true"></i></a>
           <?php if ($article['isPublished'] == 0): ?>
             <a href="#" class="publish-article" data-id="<?php echo $article['articleid']; ?>" title="Publish Article"><i class="fa fa-eye" aria-hidden="true"></i></a>
           <?php else: ?>

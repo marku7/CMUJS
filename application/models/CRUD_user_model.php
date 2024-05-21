@@ -54,26 +54,9 @@ class CRUD_user_model extends CI_Model{
         if ($query->num_rows() > 0) {
             return $query->row()->submission_id;
         } else {
-            return false; // or handle the case where no submission is found
+            return false;
         }
     }
-    
-    
-
-    // public function editUser($userId){
-    //     echo "In editUser method of CRUD_user_model with userId: $userId<br>";
-    //     echo 'Received userId: '. $userId;
-    //     $userId = $this->input->post('userId');
-    
-    //     $data = array(
-    //         'complete_name' => $this->input->post('name'),
-    //         'pword' => $this->input->post('password'),
-    //         'email' => $this->input->post('email'),
-    //     );
-    
-    //     $this->db->where('userid', $userId);
-    //     return $this->db->update('users', $data);
-    // }
     
 }
 ?>

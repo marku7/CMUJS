@@ -150,6 +150,52 @@
             $this->db->where('articleid', $articleId);
             return $this->db->update('articles', ['feature' => 0]);
         }
+
+        public function getArtId($articleId) {
+            $this->db->select('articleid');
+            $this->db->where('articleid', $articleId);
+            $query = $this->db->get('article_submission');
+            $result = $query->row();
+        
+            if ($result) {
+                return $result->submissionid;
+            } else {
+                return null;
+            }
+        }
+
+        public function updateArt($data, $articleId) {
+            $this->db->where('articleid', $articleId);
+            $this->db->update('articles', $data);
+        }
+    
+        public function updateArticleSubmission($data, $submission_id) {
+            $this->db->where('articleid', $submission_id);
+            $this->db->update('article_submission', $data);
+        }
+    
+        public function getArticleById($articleId) {
+            $query = $this->db->get_where('articles', array('articleid' => $articleId));
+            return $query->row_array();
+        }
+
+        public function get_volume_names() {
+            $query = $this->db->select('volumeid, vol_name')->get('volume');
+            return $query->result_array();
+        }        
+    
+        public function getSubmissionId($articleId) {
+            $this->db->select('articleid');
+            $this->db->from('articles');
+            $this->db->where('articleid', $articleId);
+            $query = $this->db->get();
+            
+            if ($query->num_rows() > 0) {
+                return $query->row()->submission_id;
+            } else {
+                return false; 
+            }
+        }
         
         
     }

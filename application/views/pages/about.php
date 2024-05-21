@@ -6,7 +6,7 @@
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-    <a href="articles">
+    <a href="#">
     <h2>About the Journal</h2>
     </a>
     <img src="assets/img/about.gif" alt="Article Image" width="100%">

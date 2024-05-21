@@ -254,35 +254,68 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            // Load the user data to pre-fill the form
             $data['user'] = $this->crud_user_model->getUserById($userId);
 
-            // Load views
             $this->load->view('templates/adminheader');
             $this->load->view('admin/editUser', $data);
             $this->load->view('admin/sidebar', $page);
             $this->load->view('templates/adminfooter');
         } else {
-            // Prepare submission data
             $submission_data = array(
                 'email' => $this->input->post('email'),
                 'complete_name' => $this->input->post('name'),
                 'pword' => $this->input->post('password'),
             );
-
-            // Update the user information
             $this->crud_user_model->updateUser($submission_data, $userId);
 
-            // Update user submission information
             $submission_id = $this->crud_user_model->getSubmissionId($userId);
             if ($submission_id) {
                 $this->crud_user_model->updateUserSubmission($submission_data, $submission_id);
             }
 
-            // Redirect to the user management page
             redirect(base_url('admin/user'));
         }
     }
+
+    public function updateArt($articleId) {
+        $page['active_page'] = 'article';
+        $data['articles'] = 'admin/updateArt';
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
+    
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('keywords', 'Keywords', 'required');
+        $this->form_validation->set_rules('abstract', 'Abstract', 'required');
+        $this->form_validation->set_rules('doi', 'Abstract', 'required');
+    
+        if ($this->form_validation->run() == FALSE) {
+            $data['article'] = $this->article_model->getArticleById($articleId);
+            $data['volume_names'] = $this->article_model->get_volume_names();
+
+            $this->load->view('templates/adminheader');
+            $this->load->view('admin/editArticle', $data);
+            $this->load->view('admin/sidebar', $page);
+            $this->load->view('templates/adminfooter');
+        } else {
+            $submission_data = array(
+                'title' => $this->input->post('title'),
+                'keywords' => $this->input->post('keywords'),
+                'abstract' => $this->input->post('abstract'),
+                'doi' => $this->input->post('doi'),
+                'volumeid' => $this->input->post('volumeid'),
+            );
+    
+            $this->article_model->updateArt($submission_data, $articleId);
+    
+            $submission_id = $this->article_model->getSubmissionId($articleId);
+            if ($submission_id) {
+                $this->article_model->updateArticleSubmission($submission_data, $submission_id);
+            }
+    
+            redirect(base_url('admin/article'));
+        }
+    }
+    
     
     public function editVolume($volumeID){
         echo "Received volumeID: ". $volumeID;
