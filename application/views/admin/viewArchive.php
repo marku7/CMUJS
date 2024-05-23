@@ -18,6 +18,7 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .navbar {
@@ -41,26 +42,45 @@ html, body {
 
 .card {
   background-color: white;
-  padding: 20px;
+  padding: 15px;
   margin-top: 10px;
   width: 100% !important;
-  height: 100% !important;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  flex: 1 0 auto; /* Allow card to grow and take remaining space */
+  flex: 1 0 auto;
+}
+
+.card-article {
+  background-color: white;
+  padding: 15px; 
+  margin-top: 400px;
+  width: 100% !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  flex: 1 0 auto; 
 }
 
 .row {
   display: flex;
-  flex: 1 0 auto; /* Allow row to grow and take remaining space */
+  flex: 1 0 auto;
 }
 
-.article-content {
+.volume-content {
   display: flex;
-  flex-direction: column;
-  margin-top: -70px;
+  flex-direction: row; 
+  align-items: center; 
+  margin-top: 0;
 }
 
 .article-details {
+  margin-left: 10px; 
+}
+
+
+
+.card h1,
+.card h5 {
+  margin: 5px 0;
+}
+.card img {
   margin-top: 10px;
 }
 
@@ -127,26 +147,39 @@ html, body {
         </div>
       </div>
 
-      <main>
-<link rel="stylesheet" href="<?php echo base_url('assets/css/home.css'); ?>">
-<div class="row">
-  <div class="leftcolumn">
-    <div class="card" >
-      <h1><?php echo $archive['vol_name']; ?></h1>
-      <div class="card" style="width: 100%;">
-        <div class="article-content">
-          <img src="<?php echo base_url('assets/img/archiveIMG.png'); ?>" alt="Volume Image" width="200px">
-          <div class="article-details">
-            <h2 style="font-weight: bold;"><?php echo $archive['title']; ?></h2>
-            <h6><?php echo $archive['created_at']; ?></h6><br>
-            <p><i><b>DOI: </b></i><?php echo $archive['doi']; ?></p>
-            <p><b>Keywords: </b><br><?php echo $archive['keywords']; ?></p>
-           <br><b>Abstract:</b><br><?php echo $archive['abstract']; ?>
+      <main class="main">
+      <div class="row">
+        <div class="leftcolumn">
+          <div class="card">
+            <h1><?php echo $archive['vol_name']; ?></h1>
+            <h5><?php echo $archive['date_at']; ?></h5><br>
+            <div class="volume-content">
+              <img src="<?php echo base_url('assets/img/archiveIMG.png'); ?>" alt="Volume Image" width="200px">
+              <div class="article-details">
+                <p><i><b>Description:<br></b></i> <?php echo $archive['description']; ?></p>
+              </div>
+            </div>
+          </div>
+          <div class="card-article">
+            <h2>Articles</h2><br>
+            <div class="article-content">
+            <?php if (!empty($articles)) : ?>
+              <?php foreach ($articles as $article): ?>
+              <div class="details">
+                <hr style="height: 5px; background-color: yellow; border: none;">
+              <h2 style="font-weight: bold;"><?php echo $article['title']; ?></h2>
+            <h6><?php echo $article['created_at']; ?></h6><br>
+            <p><i><b>DOI: </b></i><?php echo $article['doi']; ?></p>
+            <p><b>Keywords: </b><br><?php echo $article['keywords']; ?></p>
+           <br><b>Abstract:</b><br><?php echo $article['abstract']; ?>
+              </div><br>
+              <?php endforeach; ?>
+              <?php else : ?>
+                <p>No articles available for this archive.</p>
+              <?php endif; ?>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-</main>
+    </main>
 </div>

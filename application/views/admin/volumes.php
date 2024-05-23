@@ -49,7 +49,7 @@
           <?php endif; ?></td>
         <td><a href="<?php echo base_url('admin/viewVolume/'.$volume['volumeid']);?>" title="Edit Volume"><i class="fa fa-expand" aria-hidden="true"></i></a>
         <a href="<?php echo base_url('admin/editVolume/'.$volume['volumeid']);?>" title="Edit Volume"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-        <a href="#" class="archive-article" data-id="<?php echo $volume['volumeid']; ?>" title="Archive Volume"><i class="fa fa-archive" aria-hidden="true"></i></a>
+        <a href="#" class="archive-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Archive Volume"><i class="fa fa-archive" aria-hidden="true"></i></a>
         <a href="<?php echo base_url('admin/removeVol/'.$volume['volumeid']); ?>" title="Remove Volume"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
       </tr>
     <?php endforeach; ?>
@@ -101,6 +101,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     location.reload();
                 } else {
                     alert('Failed to unpublish the volume.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    document.querySelectorAll('.archive-volume').forEach(function(archiveLink) {
+        archiveLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            const volumeID = this.getAttribute('data-id');
+
+            fetch('<?php echo base_url('admin/archiveVolume/'); ?>' + volumeID, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
+                } else {
+                    alert('Failed to archive the volume.');
                 }
             })
             .catch(error => console.error('Error:', error));

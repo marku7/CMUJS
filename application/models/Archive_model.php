@@ -6,21 +6,31 @@
         $this->load->database();
     }
 
-    public function get_archives($id = FALSE){
-
-        $query = $this->db->select('*')
-                          ->from('articles');
-
-        $query->where('isArchive', 1);
-
-        if($id!== FALSE){
-            $query->where('articleid', $id);
+    public function get_archives($id = FALSE) {
+        $this->db->select('*')
+                 ->from('volume')
+                 ->where('isArchived', 1);
+    
+        if ($id !== FALSE) {
+            $this->db->where('volumeid', $id);
         }
-
-        $result = $query->get()->result_array();
-
-        return $result;
+    
+        $query = $this->db->get();
+    
+        if ($id !== FALSE) {
+            return $query->row_array();
+        }
+    
+        return $query->result_array();
     }
+
+    public function get_articles_by_volume($volumeid)
+    {
+        $this->db->where('volumeid', $volumeid);
+        $query = $this->db->get('articles');
+        return $query->result_array();
+    }
+    
 
     public function get_arc($id = FALSE) {
         $this->db->select('articles.*, volume.vol_name')

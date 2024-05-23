@@ -7,21 +7,31 @@
         }
 
         public function get_volumes($id = FALSE){
-
-            if($id === FALSE){
+            if ($id === FALSE) {
+                $this->db->where('isArchived', 0);
                 $query = $this->db->get('volume');
                 return $query->result_array();
             }
-            
-            $query = $this->db->get_where('volume', array('volumeid' => $id));
+        
+            $this->db->where(array('volumeid' => $id, 'isArchived' => 0));
+            $query = $this->db->get('volume');
             return $query->row_array();
+        }
+        
+
+        public function get_articles_by_volume($volumeid)
+        {
+            $this->db->where('volumeid', $volumeid);
+            $query = $this->db->get('articles');
+            return $query->result_array();
         }
 
         public function add_volume(){
             $data = array(
                 'vol_name' => $this->input->post('name'),
                 'description' => $this->input->post('description'),
-                'published' => 1,
+                'published' => 0,
+                'isArchived' => 0
             );
             return $this->db->insert('volume', $data);
         }
@@ -59,5 +69,13 @@
             $this->db->where('volumeid', $volumeID);
             return $this->db->update('volume', ['published' => 0]);
         }
+
+        public function archive_volume($volumeID) {
+            $this->db->where('volumeid', $volumeID);
+            return $this->db->update('volume', [
+                'isArchived' => 1,
+                'published' => 0
+            ]);
+        }        
 }
 ?>

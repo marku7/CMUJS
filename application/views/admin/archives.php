@@ -29,23 +29,21 @@
           </div>
   <thead>
     <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Volume Number</th>
-      <th scope="col">Key Words</th>
+      <th scope="col">Archive Name</th>
+      <th scope="col">Description</th>
       <th scope="col">Manage</th>
     </tr>
   </thead>
   <tbody>
     <?php foreach ($archives as $archive): ?>
       <tr>
-        <td><?php echo $archive['title']; ?></td>
-        <td><?php echo $archive['volumeid']; ?></td>
-        <td><?php echo $archive['keywords']; ?></td>
+        <td><?php echo $archive['vol_name']; ?></td>
+        <td><?php echo $archive['description']; ?></td>
         <td>
           <a href="#" title="Edit Archived"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-          <a href="<?php echo base_url('admin/viewArchive/'.$archive['articleid']); ?>" title="View Archived"><i class="fa fa-expand" aria-hidden="true"></i></a>
-          <a href="#" class="unarchive-article" data-id="<?php echo $archive['articleid']; ?>" title="Unarchive Article"><i class="fa fa-file-archive-o" aria-hidden="true"></i></a>
-          <a href="<?php echo base_url('admin/removeArchive/'.$archive['articleid']); ?>" title="Delete Archived Article"><i class="fa fa-trash" aria-hidden="true"></i></a>
+          <a href="<?php echo base_url('admin/viewArchive/'.$archive['volumeid']); ?>" title="View Archived"><i class="fa fa-expand" aria-hidden="true"></i></a>
+          <a href="#" class="unarchive-article" data-id="<?php echo $archive['volumeid']; ?>" title="Unarchive Article"><i class="fa fa-file-archive-o" aria-hidden="true"></i></a>
+          <a href="<?php echo base_url('admin/removeArchive/'.$archive['volumeid']); ?>" title="Delete Archived Article"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
       </tr>
     <?php endforeach; ?>

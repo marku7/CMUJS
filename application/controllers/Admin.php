@@ -344,7 +344,7 @@ class Admin extends CI_Controller {
 
     public function viewArt($articleId = NULL) {
         $data['active_page'] = 'article';
-        $data['article'] = $this->article_model->get_articles($articleId); 
+        $data['article'] = $this->article_model->get_articles($articleId);
         $data['view_article'] = 'admin/viewArticle';
         $this->load->helper('url');
         $this->load->view('templates/adminheader', $data);
@@ -354,7 +354,8 @@ class Admin extends CI_Controller {
 
     public function viewVolume($volumeid = NULL) {
         $data['active_page'] = 'volume';
-        $data['volume'] = $this->volume_model->get_volumes($volumeid); 
+        $data['volume'] = $this->volume_model->get_volumes($volumeid);
+        $data['articles'] = $this->volume_model->get_articles_by_volume($volumeid); 
         $data['view_volume'] = 'admin/viewVolume';
         $this->load->helper('url');
         $this->load->view('templates/adminheader', $data);
@@ -374,7 +375,8 @@ class Admin extends CI_Controller {
 
     public function viewArchive($archiveid = NULL) {
         $data['active_page'] = 'archive';
-        $data['archive'] = $this->archive_model->get_arc($archiveid); 
+        $data['archive'] = $this->archive_model->get_archives($archiveid); 
+        $data['articles'] = $this->archive_model->get_articles_by_volume($archiveid); 
         $data['view_archive'] = 'admin/viewArchive';
         $this->load->helper('url');
         $this->load->view('templates/adminheader', $data);
@@ -503,6 +505,17 @@ class Admin extends CI_Controller {
     public function untagArticle($articleId) {
         $this->load->model('article_model');
         $result = $this->article_model->untag_article($articleId);
+    
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
+
+    public function archiveVolume($volumeid) {
+        $this->load->model('volume_model');
+        $result = $this->volume_model->archive_volume($volumeid);
     
         if ($result) {
             echo json_encode(['status' => 'success']);
