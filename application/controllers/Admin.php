@@ -372,6 +372,16 @@ class Admin extends CI_Controller {
         $this->load->view('templates/adminfooter', $data);
     }
 
+    public function viewArchive($archiveid = NULL) {
+        $data['active_page'] = 'archive';
+        $data['archive'] = $this->archive_model->get_arc($archiveid); 
+        $data['view_archive'] = 'admin/viewArchive';
+        $this->load->helper('url');
+        $this->load->view('templates/adminheader', $data);
+        $this->load->view($data['view_archive'], $data);
+        $this->load->view('templates/adminfooter', $data);
+    }
+
     public function archiveArticle($articleId) {
         $this->load->model('article_model');
         $result = $this->article_model->archive_article($articleId);
