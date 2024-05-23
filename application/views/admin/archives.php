@@ -42,7 +42,7 @@
         <td>
           <a href="#" title="Edit Archived"><i class="fa fa-pencil" aria-hidden="true"></i></a>
           <a href="<?php echo base_url('admin/viewArchive/'.$archive['volumeid']); ?>" title="View Archived"><i class="fa fa-expand" aria-hidden="true"></i></a>
-          <a href="#" class="unarchive-article" data-id="<?php echo $archive['volumeid']; ?>" title="Unarchive Article"><i class="fa fa-file-archive-o" aria-hidden="true"></i></a>
+          <a href="#" class="unarchive-volume" data-id="<?php echo $archive['volumeid']; ?>" title="Unarchive Article"><i class="fa fa-file-archive-o" aria-hidden="true"></i></a>
           <a href="<?php echo base_url('admin/removeArchive/'.$archive['volumeid']); ?>" title="Delete Archived Article"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
       </tr>
@@ -54,13 +54,12 @@
 </main>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.unarchive-article').forEach(function(unarchiveLink) {
+    document.querySelectorAll('.unarchive-volume').forEach(function(unarchiveLink) {
         unarchiveLink.addEventListener('click', function(event) {
             event.preventDefault();
-            const articleId = this.getAttribute('data-id');
+            const volumeID = this.getAttribute('data-id');
             
-            if (confirm('Are you sure you want to unarchive this article?')) {
-                fetch('<?php echo base_url('admin/unarchiveArticle/'); ?>' + articleId, {
+                fetch('<?php echo base_url('admin/unarchiveVolume/'); ?>' + volumeID, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -72,11 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (data.status === 'success') {
                         location.reload();
                     } else {
-                        alert('Failed to unarchive the article.');
+                        alert('Failed to unarchive the volume.');
                     }
                 })
                 .catch(error => console.error('Error:', error));
-            }
+            
         });
     });
 });

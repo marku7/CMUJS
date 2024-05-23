@@ -44,19 +44,16 @@
 
 <div class="nice-form-group">
   <label>Volume</label>
-    <div class="radio-horizontal">
-      <?php foreach ($volumes as $volume): ?>
-        <div>
-          <input type="radio" id="<?php echo $volume['volumeid']; ?>" name="volumeid" value="<?php echo $volume['volumeid']; ?>" <?php echo ($volume['volumeid'] == 1) ? 'checked' : ''; ?>>
-            <label for="<?php echo $volume['volumeid']; ?>"> <?php echo $volume['vol_name']; ?></label>
-        </div>
-      <?php endforeach; ?>
-        </div>
- </div>
+  <select name="volumeid">
+    <?php foreach ($volumes as $volume): ?>
+      <option value="<?php echo $volume['volumeid']; ?>" <?php echo ($volume['volumeid'] == 1) ? 'selected' : ''; ?>>
+        <?php echo $volume['vol_name']; ?>
+      </option>
+    <?php endforeach; ?>
+  </select>
+</div>
+
 <input type="hidden" name="articleid" value="<?php echo uniqid(); ?>">
-<label for="file">Upload File:</label>
-<input type="file" id="file" name="file" accept=".pdf" required>
-<br>
 
 <button class="button" type="submit">
   <span class="button-text">Submit</span>

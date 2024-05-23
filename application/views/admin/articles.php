@@ -57,7 +57,7 @@
           <?php else: ?>
             <a href="#" class="untag-highlight" data-id="<?php echo $article['articleid']; ?>" title="Untag Highlight"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
           <?php endif; ?>
-          <a href="#" class="archive-article" data-id="<?php echo $article['articleid']; ?>" title="Archive Article"><i class="fa fa-archive" aria-hidden="true"></i></a>
+          <!-- <a href="#" class="archive-article" data-id="<?php echo $article['articleid']; ?>" title="Archive Article"><i class="fa fa-archive" aria-hidden="true"></i></a> -->
           <a href="<?php echo base_url('admin/removeArticle/'.$article['articleid']); ?>" title="Remove Article"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
       </tr>

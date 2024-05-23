@@ -395,9 +395,9 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function unarchiveArticle($articleId) {
-        $this->load->model('article_model');
-        $result = $this->article_model->unarchive_article($articleId);
+    public function unarchiveVolume($volumeID) {
+        $this->load->model('volume_model');
+        $result = $this->volume_model->unarchive_volume($volumeID);
     
         if ($result) {
             echo json_encode(['status' => 'success']);
@@ -481,8 +481,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function removeArchive($articleID) {
-        $result = $this->article_model->remove_article($articleID);
+    public function removeArchive($volumeID) {
+        $result = $this->volume_model->deleteArc($volumeID);
     
         if ($result) {
             redirect('admin/archive');

@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="../assets/css/form.css">
 <link rel="stylesheet" href="../assets/css/style.css">
+<script src="//cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
+
 <body id="body">
     <div class="container">  
       <nav class="navbar">
@@ -26,7 +28,7 @@
 
 <div class="nice-form-group">
   <label>Description</label>
-  <input type="text" name="description" placeholder="Description" />
+  <textarea id="editor1" name="description" placeholder="Description" value=""></textarea>
 </div>
 <br>
 <button class="button" type="submit">

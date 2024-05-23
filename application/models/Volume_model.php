@@ -76,6 +76,24 @@
                 'isArchived' => 1,
                 'published' => 0
             ]);
-        }        
+        }   
+        public function unarchive_volume($volumeID) {
+            $this->db->where('volumeid', $volumeID);
+            return $this->db->update('volume', [
+                'isArchived' => 0,
+                'published' => 1
+            ]);
+        }    
+        public function deleteArc($volumeID) {
+            $this->db->trans_start();
+        
+            $this->db->delete('articles', array('volumeid' => $volumeID));
+        
+            $this->db->delete('volume', array('volumeid' => $volumeID));
+       
+            $this->db->trans_complete();
+
+            return $this->db->trans_status();
+        }
 }
 ?>
