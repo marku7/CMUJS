@@ -95,5 +95,42 @@
 
             return $this->db->trans_status();
         }
+
+          //kani    
+        public function updateVolumeSubmission($data, $submission_id) {
+            $this->db->where('volumeid', $submission_id);
+            $this->db->update('volume_submission', $data);
+        }
+    
+          //kani
+          public function updateVol($data, $volumeID) {
+            $this->db->where('volumeid', $volumeID);
+            $this->db->update('volume', $data);
+        }
+    
+          //kani
+        public function getVolumeById($volumeID) {
+            $query = $this->db->get_where('volume', array('volumeid' => $volumeID));
+            return $query->row_array();
+        }
+
+        public function get_volume_names() {
+            $query = $this->db->select('volumeid, vol_name')->get('volume');
+            return $query->result_array();
+        }        
+        
+      //kani
+        public function getSubmissionId($volumeID) {
+            $this->db->select('volumeid');
+            $this->db->from('volume');
+            $this->db->where('volumeid', $volumeID);
+            $query = $this->db->get();
+            
+            if ($query->num_rows() > 0) {
+                return $query->row()->submission_id;
+            } else {
+                return false; 
+            }
+        }
 }
 ?>

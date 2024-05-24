@@ -212,37 +212,6 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function editUser($userId) {
-        $data['userId'] = $userId;
-        $data['active_page'] = 'user';
-        $data['users_content'] = 'admin/editUser';
-        $this->load->helper(array('form', 'url'));
-        $this->load->library('form_validation');
-
-        $this->load->model('crud_user_model'); 
-        $data['user'] = $this->crud_user_model->get_user_by_id($userId);
-    
-        $this->form_validation->set_rules('email', 'Email', 'required');
-        $this->form_validation->set_rules('name', 'Full Name', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
-    
-        if ($this->form_validation->run() == FALSE)
-        {
-            $this->load->view('templates/adminheader', $data);
-            $this->load->view('admin/editUser', $data);
-            $this->load->view('admin/sidebar', $data);
-            $this->load->view('templates/adminfooter', $data);
-        }
-        else
-        {
-            if ($this->crud_user_model->editUser($userId)) { 
-                redirect('admin/user');
-            } else {
-                echo "Failed to edit user!";
-            }
-        }
-    }
-
     public function updateNow($userId) {
         $page['active_page'] = 'user';
         $data['users'] = 'admin/updateNow';
@@ -291,6 +260,11 @@ class Admin extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             $data['article'] = $this->article_model->getArticleById($articleId);
             $data['volume_names'] = $this->article_model->get_volume_names();
+            $query = $this->db->get('volume');
+            $volumes = $query->result_array();
+
+            $data['volumes'] = $volumes;
+            
 
             $this->load->view('templates/adminheader');
             $this->load->view('admin/editArticle', $data);
@@ -316,20 +290,70 @@ class Admin extends CI_Controller {
         }
     }
     
+    public function updateVolume($volumeID){
+        $page['active_page'] = 'volume';
+        $data['volume'] = 'admin/updateVolume';
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
     
-    public function editVolume($volumeID){
-        echo "Received volumeID: ". $volumeID;
-        $data['volume'] = $this->volume_model->get_volumes($volumeID);
+        $this->form_validation->set_rules('volname', 'name', 'required');
+        $this->form_validation->set_rules('description', 'description', 'required');
+    
+        if ($this->form_validation->run() == FALSE) {
+            $data['volume'] = $this->volume_model->getVolumeById($volumeID);
 
-        if (empty($data['volume'])){
-            show_404();
+            $this->load->view('templates/adminheader');
+            $this->load->view('admin/editVolume', $data);
+            $this->load->view('admin/sidebar', $page);
+            $this->load->view('templates/adminfooter');
+        } else {
+            $submission_data = array(
+                'vol_name' => $this->input->post('volname'),
+                'description' => $this->input->post('description'),
+            );
+    
+            $this->volume_model->updateVol($submission_data, $volumeID);
+    
+            $submission_id = $this->volume_model->getSubmissionId($volumeID);
+            if ($submission_id) {
+                $this->volume_model->updateVolumeSubmission($submission_data, $submission_id);
+            }
+    
+            redirect(base_url('admin/volume'));
         }
+    }
 
-        $data['title'] = 'Edit Volume';
+    public function updateArchive($volumeID){
+        $page['active_page'] = 'volume';
+        $data['volume'] = 'admin/updateVolume';
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
+    
+        $this->form_validation->set_rules('volname', 'name', 'required');
+        $this->form_validation->set_rules('description', 'description', 'required');
+    
+        if ($this->form_validation->run() == FALSE) {
+            $data['volume'] = $this->volume_model->getVolumeById($volumeID);
 
-        $this->load->view('templates/adminheader', $data);
-        $this->load->view('admin/editVolume', $data);
-        $this->load->view('templates/adminfooter', $data);
+            $this->load->view('templates/adminheader');
+            $this->load->view('admin/editArchive', $data);
+            $this->load->view('admin/sidebar', $page);
+            $this->load->view('templates/adminfooter');
+        } else {
+            $submission_data = array(
+                'vol_name' => $this->input->post('volname'),
+                'description' => $this->input->post('description'),
+            );
+    
+            $this->volume_model->updateVol($submission_data, $volumeID);
+    
+            $submission_id = $this->volume_model->getSubmissionId($volumeID);
+            if ($submission_id) {
+                $this->volume_model->updateVolumeSubmission($submission_data, $submission_id);
+            }
+    
+            redirect(base_url('admin/archive'));
+        }
     }
 
     public function viewUser($userId = NULL) {

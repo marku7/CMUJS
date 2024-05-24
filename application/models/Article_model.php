@@ -166,18 +166,21 @@
             }
         }
 
+          //kani
         public function updateArt($data, $articleId) {
-            $this->db->where('articleid', $articleId);
+            $this->db->where('articleNo', $articleId);
             $this->db->update('articles', $data);
         }
     
+          //kani    
         public function updateArticleSubmission($data, $submission_id) {
-            $this->db->where('articleid', $submission_id);
+            $this->db->where('articleNo', $submission_id);
             $this->db->update('article_submission', $data);
         }
     
+          //kani
         public function getArticleById($articleId) {
-            $query = $this->db->get_where('articles', array('articleid' => $articleId));
+            $query = $this->db->get_where('articles', array('articleNo' => $articleId));
             return $query->row_array();
         }
 
@@ -185,11 +188,12 @@
             $query = $this->db->select('volumeid, vol_name')->get('volume');
             return $query->result_array();
         }        
-    
+        
+      //kani
         public function getSubmissionId($articleId) {
-            $this->db->select('articleid');
+            $this->db->select('articleNo');
             $this->db->from('articles');
-            $this->db->where('articleid', $articleId);
+            $this->db->where('articleNo', $articleId);
             $query = $this->db->get();
             
             if ($query->num_rows() > 0) {

@@ -29,21 +29,24 @@ class CRUD_user_model extends CI_Model{
         }
     }
 
+    //kani
     public function updateUser($data, $userId) {
         $this->db->where('userid', $userId);
         $this->db->update('users', $data);
     }
-
+  //kani
     public function updateUserSubmission($data, $submission_id) {
         $this->db->where('userid', $submission_id);
         $this->db->update('user_submission', $data);
     }
 
+      //kani
     public function getUserById($userId) {
         $query = $this->db->get_where('users', array('userid' => $userId));
         return $query->row_array();
     }
 
+      //kani
     public function getSubmissionId($userId) {
         $this->db->select('userid');
         $this->db->from('users');

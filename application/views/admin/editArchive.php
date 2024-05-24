@@ -9,9 +9,8 @@
           <i class="fa fa-bars" aria-hidden="true"></i>
         </div>
         <div class="navbar__left">
-          <a  href="../volume">Volume Management</a>
-          <a href="../addVolume">Create New Volume</a>
-          <a href="" class="active_link">Edit Volume</a>
+          <a  href="../archive">Archive Management</a>
+          <a href="#" class="active_link">Edit Volume</a>
         </div>
       </nav>
       
@@ -47,11 +46,11 @@
             <i class="fa fa-address-book-o"></i>
             <a href="<?php echo base_url('admin/author'); ?>">Author Management</a>
           </div>
-          <div class="sidebar__link active_menu_link">
+          <div class="sidebar__link">
             <i class="fa fa-book"></i>
             <a href="<?php echo base_url('admin/volume'); ?>">Volume Management</a>
           </div>
-          <div class="sidebar__link">
+          <div class="sidebar__link active_menu_link">
             <i class="fa fa-newspaper-o"></i>
             <a href="archive">Archive Management</a>
           </div>
@@ -70,7 +69,7 @@
             </div>
           </div>
                 <?php echo validation_errors(); ?>
-                <form action="<?php echo site_url('admin/updateVolume/' . $volume['volumeid']); ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?php echo site_url('admin/updateArchive/' . $volume['volumeid']); ?>" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="volumeID" value="<?php echo $volume['volumeid']; ?>"> 
                     <div class="nice-form-group">
                         <label>Volume Name</label>

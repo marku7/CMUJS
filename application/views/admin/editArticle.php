@@ -15,17 +15,15 @@
         </div>
         <div class="navbar__right">
           <a href="#">
-            <img width="30" src="../assets/img/admin.png" alt="" />
+            <img width="30" src="../../assets/img/admin.png" alt="" />
           </a>
         </div>
       </nav>
       <main>
     <div class="main__container">
     <?php echo validation_errors(); ?>
-
-    <?php echo form_open('admin/updateArt'); ?>
-    <form action="<?php echo site_url('admin/updateArt/' . $article['articleid']); ?>" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="artid" value="<?php echo $article['articleid']; ?>"> 
+    <form action="<?php echo site_url('admin/updateArt/' . $article['articleNo']); ?>" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="artid" value="<?php echo $article['articleNo']; ?>"> 
 <div class="nice-form-group">
   <label>Article Title</label>
   <input type="text" placeholder="Title" name="title" value="<?php echo $article['title']; ?>" />
@@ -48,14 +46,13 @@
 
 <div class="nice-form-group">
     <label>Volume</label>
-    <div class="radio-horizontal">
-        <?php foreach ($volume_names as $volume): ?>
-            <div>
-                <input type="radio" id="<?php echo $volume['volumeid']; ?>" name="volumeid" value="<?php echo $volume['volumeid']; ?>" <?php echo ($volume['volumeid'] == $article['volumeid']) ? 'checked' : ''; ?>>
-                <label for="<?php echo $volume['volumeid']; ?>"> <?php echo $volume['vol_name']; ?></label>
-            </div>
-        <?php endforeach; ?>
-    </div>
+    <select name="volumeid">
+    <?php foreach ($volumes as $volume): ?>
+      <option value="<?php echo $volume['volumeid']; ?>" <?php echo ($volume['volumeid'] == 1) ? 'selected' : ''; ?>>
+        <?php echo $volume['vol_name']; ?>
+      </option>
+    <?php endforeach; ?>
+  </select>
 </div>
 
 <br>
@@ -67,3 +64,4 @@
 </form>
 </div>
 </main>
+

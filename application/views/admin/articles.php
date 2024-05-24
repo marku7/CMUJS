@@ -46,7 +46,7 @@
         <td><?php echo $article['doi']; ?></td>
         <td style="font-size: 18px;">
             <a href="<?php echo base_url('admin/viewArt/'.$article['articleid']); ?>" title="View Article"><i class="fa fa-expand" aria-hidden="true"></i></a>
-          <a href="<?php echo base_url('admin/updateArt/'.$article['articleid']); ?>" title="Edit Article"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+          <a href="<?php echo base_url('admin/updateArt/'.$article['articleNo']); ?>" title="Edit Article"><i class="fa fa-pencil" aria-hidden="true"></i></a>
           <?php if ($article['isPublished'] == 0): ?>
             <a href="#" class="publish-article" data-id="<?php echo $article['articleid']; ?>" title="Publish Article"><i class="fa fa-eye" aria-hidden="true"></i></a>
           <?php else: ?>

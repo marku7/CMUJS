@@ -40,7 +40,7 @@
         <td><?php echo $archive['vol_name']; ?></td>
         <td><?php echo $archive['description']; ?></td>
         <td>
-          <a href="#" title="Edit Archived"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+          <a href="<?php echo base_url('admin/updateArchive/'.$archive['volumeid']);?>" title="Edit Archived"><i class="fa fa-pencil" aria-hidden="true"></i></a>
           <a href="<?php echo base_url('admin/viewArchive/'.$archive['volumeid']); ?>" title="View Archived"><i class="fa fa-expand" aria-hidden="true"></i></a>
           <a href="#" class="unarchive-volume" data-id="<?php echo $archive['volumeid']; ?>" title="Unarchive Article"><i class="fa fa-file-archive-o" aria-hidden="true"></i></a>
           <a href="<?php echo base_url('admin/removeArchive/'.$archive['volumeid']); ?>" title="Delete Archived Article"><i class="fa fa-trash" aria-hidden="true"></i></a>

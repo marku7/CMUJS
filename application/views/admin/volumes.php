@@ -48,7 +48,7 @@
             <a href="#" class="unpublish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Unpublish Volume"><i class="fa fa-eye-slash" aria-hidden="true" style="color: #F1BD07; font-size: 20px;"></i></a>
           <?php endif; ?></td>
         <td><a href="<?php echo base_url('admin/viewVolume/'.$volume['volumeid']);?>" title="Edit Volume"><i class="fa fa-expand" aria-hidden="true"></i></a>
-        <a href="<?php echo base_url('admin/editVolume/'.$volume['volumeid']);?>" title="Edit Volume"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <a href="<?php echo base_url('admin/updateVolume/'.$volume['volumeid']);?>" title="Edit Volume"><i class="fa fa-pencil" aria-hidden="true"></i></a>
         <a href="#" class="archive-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Archive Volume"><i class="fa fa-archive" aria-hidden="true"></i></a>
         <a href="<?php echo base_url('admin/removeVol/'.$volume['volumeid']); ?>" title="Remove Volume"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
       </tr>
