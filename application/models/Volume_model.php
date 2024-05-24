@@ -6,17 +6,38 @@
             $this->load->database();
         }
 
-        public function get_volumes($id = FALSE){
+        public function get_volumes($id = FALSE) {
+            $this->db->where('isArchived', 0);
+            
             if ($id === FALSE) {
-                $this->db->where('isArchived', 0);
                 $query = $this->db->get('volume');
                 return $query->result_array();
+            } else {
+                $this->db->where('volumeid', $id);
+                $query = $this->db->get('volume');
+                return $query->row_array();
             }
-        
-            $this->db->where(array('volumeid' => $id, 'isArchived' => 0));
-            $query = $this->db->get('volume');
-            return $query->row_array();
         }
+
+        public function get_volumes_home($id = FALSE) {
+            $this->db->where('isArchived', 0);
+            $this->db->where('published', 1);
+            
+            if ($id === FALSE) {
+                $query = $this->db->get('volume');
+                return $query->result_array();
+            } else {
+                $this->db->where('volumeid', $id);
+                $query = $this->db->get('volume');
+                return $query->row_array();
+            }
+        }
+               
+
+        public function get_volume($id) {
+            $query = $this->db->get_where('volume', array('volumeid' => $id, 'isArchived' => 0));
+            return $query->row_array();
+        }        
         
 
         public function get_articles_by_volume($volumeid)
@@ -61,29 +82,54 @@
         
 
         public function publish_volume($volumeID) {
+            $this->db->trans_start();
             $this->db->where('volumeid', $volumeID);
-            return $this->db->update('volume', ['published' => 1]);
+            $this->db->update('volume', ['published' => 1]);
+        
+            $this->db->where('volumeid', $volumeID);
+            $this->db->update('articles', ['isPublished' => 1]);
+        
+            $this->db->trans_complete();
+            return $this->db->trans_status();
         }
         
         public function unpublish_volume($volumeID) {
+            $this->db->trans_start();
             $this->db->where('volumeid', $volumeID);
-            return $this->db->update('volume', ['published' => 0]);
+            $this->db->update('volume', ['published' => 0]);
+        
+            $this->db->where('volumeid', $volumeID);
+            $this->db->update('articles', ['isPublished' => 0]);
+        
+            $this->db->trans_complete();
+            return $this->db->trans_status();
         }
-
+        
         public function archive_volume($volumeID) {
+            $this->db->trans_start();
             $this->db->where('volumeid', $volumeID);
-            return $this->db->update('volume', [
-                'isArchived' => 1,
-                'published' => 0
-            ]);
-        }   
+            $this->db->update('volume', ['isArchived' => 1, 'published' => 0]);
+        
+            $this->db->where('volumeid', $volumeID);
+            $this->db->update('articles', ['isArchive' => 1, 'isPublished' => 0]);
+        
+            $this->db->trans_complete();
+            return $this->db->trans_status();
+        }
+        
         public function unarchive_volume($volumeID) {
+            $this->db->trans_start();
             $this->db->where('volumeid', $volumeID);
-            return $this->db->update('volume', [
-                'isArchived' => 0,
-                'published' => 1
-            ]);
-        }    
+            $this->db->update('volume', ['isArchived' => 0, 'published' => 1]);
+
+            $this->db->where('volumeid', $volumeID);
+            $this->db->update('articles', ['isArchive' => 0, 'isPublished' => 1]);
+        
+            $this->db->trans_complete();
+            return $this->db->trans_status();
+        }
+          
+
         public function deleteArc($volumeID) {
             $this->db->trans_start();
         
@@ -95,20 +141,17 @@
 
             return $this->db->trans_status();
         }
-
-          //kani    
+  
         public function updateVolumeSubmission($data, $submission_id) {
             $this->db->where('volumeid', $submission_id);
             $this->db->update('volume_submission', $data);
         }
-    
-          //kani
+
           public function updateVol($data, $volumeID) {
             $this->db->where('volumeid', $volumeID);
             $this->db->update('volume', $data);
         }
-    
-          //kani
+
         public function getVolumeById($volumeID) {
             $query = $this->db->get_where('volume', array('volumeid' => $volumeID));
             return $query->row_array();
@@ -118,8 +161,7 @@
             $query = $this->db->select('volumeid, vol_name')->get('volume');
             return $query->result_array();
         }        
-        
-      //kani
+
         public function getSubmissionId($volumeID) {
             $this->db->select('volumeid');
             $this->db->from('volume');

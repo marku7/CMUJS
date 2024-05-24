@@ -28,7 +28,6 @@
                      ->from('articles')
                      ->join('volume', 'articles.volumeid = volume.volumeid')
                      ->where('articles.isArchive', 0)
-                     ->where('articles.feature', 1)
                      ->where('articles.isPublished', 1)
                      ->where('volume.published', 1);
         
@@ -82,8 +81,6 @@
                      ->where('articles.articleid', $id);
         
             $query = $this->db->get();
-        
-            // Return a single record instead of an array of records
             return $query->row_array();
         }
         
@@ -166,19 +163,16 @@
             }
         }
 
-          //kani
         public function updateArt($data, $articleId) {
             $this->db->where('articleNo', $articleId);
             $this->db->update('articles', $data);
         }
-    
-          //kani    
+     
         public function updateArticleSubmission($data, $submission_id) {
             $this->db->where('articleNo', $submission_id);
             $this->db->update('article_submission', $data);
         }
     
-          //kani
         public function getArticleById($articleId) {
             $query = $this->db->get_where('articles', array('articleNo' => $articleId));
             return $query->row_array();
@@ -189,7 +183,6 @@
             return $query->result_array();
         }        
         
-      //kani
         public function getSubmissionId($articleId) {
             $this->db->select('articleNo');
             $this->db->from('articles');
@@ -201,6 +194,11 @@
             } else {
                 return false; 
             }
+        }
+
+        public function get_articles_by_volume($volumeid) {
+            $query = $this->db->get_where('articles', array('volumeid' => $volumeid));
+            return $query->result_array();
         }
         
         

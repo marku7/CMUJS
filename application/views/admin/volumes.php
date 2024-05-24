@@ -43,9 +43,9 @@
         <td><?php echo $volume['vol_name']; ?></td>
         <td><?php echo $volume['date_at']; ?></td>
         <td style="text-decoration: none;"><?php if ($volume['published'] == 0): ?>
-            <a href="#" class="publish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Publish Volume"><i class="fa fa-eye" aria-hidden="true" style="color: #F1BD07; font-size: 20px;"></i></a>
+            <a href="#" class="publish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Publish Volume"><i class="fa fa-toggle-off" aria-hidden="true" style="color: #F1BD07; font-size: 24px;"></i></a>
           <?php else: ?>
-            <a href="#" class="unpublish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Unpublish Volume"><i class="fa fa-eye-slash" aria-hidden="true" style="color: #F1BD07; font-size: 20px;"></i></a>
+            <a href="#" class="unpublish-volume" data-id="<?php echo $volume['volumeid']; ?>" title="Unpublish Volume"><i class="fa fa-toggle-on" aria-hidden="true" style="color: #F1BD07; font-size: 24px;"></i></a>
           <?php endif; ?></td>
         <td><a href="<?php echo base_url('admin/viewVolume/'.$volume['volumeid']);?>" title="Edit Volume"><i class="fa fa-expand" aria-hidden="true"></i></a>
         <a href="<?php echo base_url('admin/updateVolume/'.$volume['volumeid']);?>" title="Edit Volume"><i class="fa fa-pencil" aria-hidden="true"></i></a>

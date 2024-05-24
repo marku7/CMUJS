@@ -34,6 +34,7 @@
       <th scope="col">Article Title</th>
       <th scope="col">Key Words</th>
       <th scope="col">DOI</th>
+      <th scope="col">Publish</th>
       <th scope="col">Manage</th>
     </tr>
   </thead>
@@ -44,19 +45,21 @@
         <td><?php echo $article['title']; ?></td>
         <td><?php echo $article['keywords']; ?></td>
         <td><?php echo $article['doi']; ?></td>
+        <td>
+        <?php if ($article['isPublished'] == 0): ?>
+            <a href="#" class="publish-article" data-id="<?php echo $article['articleid']; ?>" title="Publish Article"><i class="fa fa-toggle-off" aria-hidden="true" style="color: #F1BD07; font-size: 24px;"></i></a>
+          <?php else: ?>
+            <a href="#" class="unpublish-article" data-id="<?php echo $article['articleid']; ?>" title="Unpublish Article"><i class="fa fa-toggle-on" aria-hidden="true" style="color: #F1BD07; font-size: 24px;"></i></a>
+          <?php endif; ?>
+        </td>
         <td style="font-size: 18px;">
             <a href="<?php echo base_url('admin/viewArt/'.$article['articleid']); ?>" title="View Article"><i class="fa fa-expand" aria-hidden="true"></i></a>
           <a href="<?php echo base_url('admin/updateArt/'.$article['articleNo']); ?>" title="Edit Article"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-          <?php if ($article['isPublished'] == 0): ?>
-            <a href="#" class="publish-article" data-id="<?php echo $article['articleid']; ?>" title="Publish Article"><i class="fa fa-eye" aria-hidden="true"></i></a>
-          <?php else: ?>
-            <a href="#" class="unpublish-article" data-id="<?php echo $article['articleid']; ?>" title="Unpublish Article"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-          <?php endif; ?>
-          <?php if ($article['feature'] == 0): ?>
+          <!-- <?php if ($article['feature'] == 0): ?>
             <a href="#" class="tag-highlight" data-id="<?php echo $article['articleid']; ?>" title="Highlight Article"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
           <?php else: ?>
             <a href="#" class="untag-highlight" data-id="<?php echo $article['articleid']; ?>" title="Untag Highlight"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
-          <?php endif; ?>
+          <?php endif; ?> -->
           <!-- <a href="#" class="archive-article" data-id="<?php echo $article['articleid']; ?>" title="Archive Article"><i class="fa fa-archive" aria-hidden="true"></i></a> -->
           <a href="<?php echo base_url('admin/removeArticle/'.$article['articleid']); ?>" title="Remove Article"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
